@@ -159,22 +159,23 @@ public class GvyCmisEventUnitPropertyUpdate
                         def gvyCmisUtil = api.getGroovyClassInstance("GvyCmisUtil")
                         //A4 -Starts
                         /**
+                         * A101 - Starts
                          * The vesselCd & vesVoyageNbr has to be read from the Field Changes (not from the unit)
                          */
-                        def GvyCmisSrvMsgProcessor = api.getGroovyClassInsatnce("GvyCmisSrvMsgProcessor");
+                        def GvyCmisSrvMsgProcessor = api.getGroovyClassInstance("GvyCmisSrvMsgProcessor");
                         Booking booking=GvyCmisSrvMsgProcessor.findBookingFromEventChanges(event.getEvent(),unit);
                         LOGGER.info("Booking from Srv processor : "+booking);
                         VesselVisitDetails vvd = VesselVisitDetails.resolveVvdFromCv(booking.getEqoVesselVisit());
                         LOGGER.info("VesselVisitDetails resolved from booking : "+vvd);
                         def vesselCd =  vvd.getVvdVessel().getVesId();
-                        LOGGER.info("Value of Vessel Code from Unit is"+
-                                unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdVessel.vesId")+" from Field Changes is "+vesselCd);
+                        LOGGER.info("Value of Vessel Code from Unit is : "+
+                                unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdVessel.vesId")+" from Field Changes is : "+vesselCd);
                         LOGGER.info("vesselCd: "+vesselCd);
                         def vesVoyageNbr =  vvd.getVvdObVygNbr();
-                        LOGGER.info("Value of voyage Number from Unit is"+
-                                unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")+" from Field Changes is "+vesVoyageNbr);
+                        LOGGER.info("Value of voyage Number from Unit is : "+
+                                unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")+" from Field Changes is : "+vesVoyageNbr);
                         LOGGER.info("vesVoyageNbr: "+vesVoyageNbr);
-                        //End changes for
+                        //A101 - Ends
                         def gvyUnitReceive = api.getGroovyClassInstance("GvyCmisEventUnitReceive");
                         unitDtl = gvyUnitReceive.processUnitRecieveFull(unitDtl,gvyCmisUtil,vesselCd,vesVoyageNbr,unit)
                         //A4 - Ends
