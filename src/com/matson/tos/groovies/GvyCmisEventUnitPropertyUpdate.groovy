@@ -10,8 +10,13 @@
 * A7   04/14/11  GR      Remove Bkg check on UNIT_ROLL Event
 * A8   02/14/12  GR      Adding Event Processing Check Methods
 * A9   02/27/14  RI		 Added method to capture Integration error
+* A101 10/18/16  KR      Read VesselCd and voyagenumber from Field changes, not from Unit.
+*                        Enhancement for UNIT_ROLL IGT messages
+*
 */
 import com.navis.apex.business.model.GroovyInjectionBase
+import com.navis.orders.business.eqorders.Booking
+import com.navis.vessel.business.schedule.VesselVisitDetails
 import org.apache.log4j.Level
 import org.apache.log4j.Logger
 
@@ -153,10 +158,23 @@ public class GvyCmisEventUnitPropertyUpdate
                         def prevBooking  = gvyEventUtil.getPreviousPropertyAsString(event, "eqboNbr")
                         def gvyCmisUtil = api.getGroovyClassInstance("GvyCmisUtil")
                         //A4 -Starts
-                        def vesselCd =  unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdVessel.vesId");
-                        LOGGER.info("ILB-ISSUE-VESSEL CODE"+vesselCd);
-                        def vesVoyageNbr =  unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")
+                        /**
+                         * The vesselCd & vesVoyageNbr has to be read from the Field Changes (not from the unit)
+                         */
+                        def GvyCmisSrvMsgProcessor = api.getGroovyClassInsatnce("GvyCmisSrvMsgProcessor");
+                        Booking booking=GvyCmisSrvMsgProcessor.findBookingFromEventChanges(event.getEvent(),unit);
+                        LOGGER.info("Booking from Srv processor : "+booking);
+                        VesselVisitDetails vvd = VesselVisitDetails.resolveVvdFromCv(booking.getEqoVesselVisit());
+                        LOGGER.info("VesselVisitDetails resolved from booking : "+vvd);
+                        def vesselCd =  vvd.getVvdVessel().getVesId();
+                        LOGGER.info("Value of Vessel Code from Unit is"+
+                                unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdVessel.vesId")+" from Field Changes is "+vesselCd);
+                        LOGGER.info("vesselCd: "+vesselCd);
+                        def vesVoyageNbr =  vvd.getVvdObVygNbr();
+                        LOGGER.info("Value of voyage Number from Unit is"+
+                                unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")+" from Field Changes is "+vesVoyageNbr);
                         LOGGER.info("vesVoyageNbr: "+vesVoyageNbr);
+                        //End changes for
                         def gvyUnitReceive = api.getGroovyClassInstance("GvyCmisEventUnitReceive");
                         unitDtl = gvyUnitReceive.processUnitRecieveFull(unitDtl,gvyCmisUtil,vesselCd,vesVoyageNbr,unit)
                         //A4 - Ends
