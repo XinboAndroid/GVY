@@ -1,0 +1,354 @@
+Sparcs N4 uses libraries from some of the following 3rd party vendors and
+projects. The license text for the specific licenses can be found
+in the documentation under the section "3rd Party Licenses" as well
+within the application under the the library subdirectory "licenses".
+
+Source code for some of the third party packages can be found
+under the client section of the Navis website at:
+
+http://www.navis.com/client/thirdparty_tools.jsp
+
+====================================================================
+
+This product includes software developed by the Apache Software
+Foundation under the Apache 1.1 and Apache 2.0 licenses.
+    http://www.apache.org/
+
+Copyright (C) 1999-2007, The Apache Software Foundation.
+====================================================================
+
+This product includes software developed by Sun Microsystems Inc
+under the Sun Binary License Agreement with supplemental license
+terms, the Common Development and Distribution License, the Lesser
+General Public License and the Berkeley Software Distribution
+license.
+
+    http://www.sun.com/
+
+Copyright 1994-2007 Sun Microsystems, Inc.
+====================================================================
+
+This product includes software developed by the Spring Framework
+project under the Apache 2.0 license.
+    http://www.springframework.org/
+
+====================================================================
+
+This product includes software developed by the ANTLR project under a
+BSD license.
+    http://www.antlr.org/
+
+ANTLR 1989-2003 Developed by jGuru.com,
+http://www.ANTLR.org  and http://www.jGuru.com
+
+====================================================================
+
+This product includes software developed by the CGLib project under
+the Apache 2.0 license.
+    http://cglib.sf.net/
+
+Copyright (C) 2002-2004, cglib
+====================================================================
+
+This product includes software developed by the EHCache project under
+the Apache 2.0 license.
+    http://ehcache.sf.net/
+
+Copyright 2003-2007 Greg Luck
+
+====================================================================
+
+This product includes software developed by Redhat Inc under the
+Lesser General Public License.
+    http://www.redhat.com/
+
+(C) 2007 Red Hat Middleware, LLC. All rights reserved.
+====================================================================
+
+This product includes software developed by the Jaxen project under
+the Apache 2.0 license.
+    http://www.jaxen.org/
+
+(C) 2001-2007, Codehaus
+
+====================================================================
+
+This product includes software developed by the JFree project under
+the Lesser General Public License.
+    http://www.jfree.org/
+
+(C) 2005-2007 Object Refinery Limited
+====================================================================
+
+This product includes software developed by the Eclipse project under
+the Common Public License.
+    http://www.eclipse.org/
+
+Copyright (C) 2007 The Eclipse Foundation. All Rights Reserved
+
+====================================================================
+
+This product includes software developed by JCraft, Inc under a BSD
+license.
+    http://www.jcraft.org/jsch/
+
+Copyright (c) 2002,2003,2004,2005,2006,2007 Atsuhiko Yamanaka, JCraft,Inc.
+All rights reserved.
+
+====================================================================
+
+This product includes software developed by BEA, Inc under the Apache
+2.0 license.
+    http://www.jfree.org/
+
+Copyright (c) 2005 BEA, Inc
+====================================================================
+
+This product includes software developed by the Safehaus project
+under the Apache 2.0 license.
+    http://jug.safehaus.org/
+
+Copyright 2004 Safehaus. All rights reserved unless otherwise noted.
+====================================================================
+
+This product includes software developed by Mulesource, Inc under the
+MuleSource Public License.
+    http://mulesource.org/
+
+The Initial Developer of the Original Code is MuleSource, Inc.
+Portions created by MuleSource are Copyright (C) 2003 MuleSource, Inc.;
+All Rights Reserved.
+
+====================================================================
+
+This product includes software developed by the MX4J project under
+the Apache 2.0 license.
+    http://mx4j.sf.net/
+
+Copyright (c) 2001-2004 by the MX4J contributors.  All rights reserved.
+
+====================================================================
+
+This product includes software developed by the ODMG project under
+the Lesser General Public License.
+    http://www.odmg.org/
+
+Copyright (c) 1999 E. Wray Johnson. All rights reserved.
+
+====================================================================
+
+This product includes software developed by the OpenSymphony project
+under the Apache 2.0 license.
+    http://www.opensymphony.com/
+
+Copyright 2000-2005 - OpenSymphony
+====================================================================
+
+This product includes software developed by the JDOM project under a
+BSD License.
+     http://www.jdom.org/
+
+Copyright (C) 2000-2002 Brett McLaughlin & Jason Hunter. All rights reserved.
+
+====================================================================
+
+This product includes software developed by JGoodies under a BSD
+License.
+     http://www.jgoodies.com/
+
+Copyright (c) 2001-2011 JGoodies Karsten Lentzsch. All rights reserved.
+
+====================================================================
+
+This product includes software developed by the arg4j project under the
+MIT License.
+     https://args4j.dev.java.net/
+
+Copyright (c) 2003, Kohsuke Kawaguchi
+All rights reserved.
+
+====================================================================
+
+This product includes software developed by Inria under a
+BSD License.
+     http://asm.objectweb.org/
+
+Copyright (c) 2000,2002,2003 INRIA, France Telecom
+All rights reserved.
+
+====================================================================
+
+This product includes software developed by MetaStuff, Ltd. and
+by the DOM4J Project under a BSD License.
+     http://www.dom4j.org/
+
+Copyright 2001-2005 (C) MetaStuff, Ltd. All Rights Reserved.
+
+====================================================================
+
+This product includes software developed by the Groovy Project, a
+Codehaus project, under a BSD License.
+    http://groovy.codehaus.org/
+
+Copyright 2003 (C) James Strachan and Bob Mcwhirter. All Rights Reserved.
+====================================================================
+
+This product includes software developed by the XStream Project, a
+Codehaus project, under a BSD License.
+    http://groovy.codehaus.org/
+
+Copyright (c) 2003-2005, Joe Walnes. All rights reserved.
+====================================================================
+
+This product includes software developed by Acme Software under a
+BSD license.
+    http://www.acme.com/java/
+
+Copyright (C) 2000 by Jef Poskanzer <jef@mail.acme.com>.  All rights reserved.
+====================================================================
+
+This product includes software developed by the Jato Project under a
+BSD license.
+    http://sourceforge.net/projects/jato
+
+Copyright (C) 2001 Andy Krumel.
+====================================================================
+
+This product includes software developed by the Jython Project under
+the Python Software Foundation License.
+    http://www.jython.org/Project/index.html
+
+Copyright (c) 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007 Jython Developers All rights reserved.
+====================================================================
+
+This product includes software developed by the Jato Project under a
+BSD license.
+    http://sourceforge.net/projects/jato
+
+Copyright (C) 2001 Andy Krumel.
+====================================================================
+
+This product includes software developed by the Woodstox project
+under the Apache 2.0 license.
+    http://woodstox.codehaus.org/
+
+Copyright (c) 2004 Tatu Saloranta, tatu.saloranta@iki.fi
+====================================================================
+
+This product includes software developed by the XFire project
+under an MIT license.
+    http://xfire.codehaus.org/
+
+Copyright (c) 2005 Envoi Solutions LLC
+====================================================================
+
+This product includes software developed by the Castle Project
+under the Apache 2.0 license.
+    http://www.castleproject.org/
+
+Copyright 2004-2005 Castle Project - http://www.castleproject.org/
+====================================================================
+
+This product includes software developed by the Getahead Project
+under the Apache 2.0 license.
+    http://getahead.org/dwr
+
+Copyright 2005 Joe Walker
+====================================================================
+
+This product includes software developed by the iText Project
+under the Mozilla Public License.
+    http://www.lowagie.com/iText
+
+Copyright (C) 1999-2007 by Bruno Lowagie
+====================================================================
+
+This product includes software developed by JasperSoft under the
+Lesser General Public License.
+    http://jasperreports.sf.net/
+
+Copyright (C) 2000-2007 JasperSoft Corporation
+====================================================================
+
+This product includes software developed by Mark Wutka under the
+Lesser General Public License and Apache 2 License.
+    http://www.wutka.com/
+
+Copyright (C) 2001 Mark Wutka.
+====================================================================
+
+This product includes software developed by the GNU Project under the
+Lesser General Public License.
+    http://savannah.gnu.org/projects/gnu-regexp/
+
+GNU Project
+====================================================================
+
+This product includes software developed by Netscape
+under the Netscape Public License.
+    http://www.mozilla.org/directory/javasdk.html
+
+Copyright Netscape
+====================================================================
+
+This product includes software developed by Mort Bay Consulting
+under the Apache 2 License.
+     http://www.mortbay.org/LICENSE.txt
+
+Copyright 1995-2006 Mort Bay Consulting Pty Ltd
+====================================================================
+
+This product includes software developed for the STAX project
+under the Apache 2 License.
+     http://stax.codehaus.org/
+
+====================================================================
+Apache MINA
+Copyright 2007 The Apache Software Foundation.
+
+This product includes software developed at
+The Apache Software Foundation (http://www.apache.org/).
+
+====================================================================
+
+Message logging is provided by the SLF4J library package,
+which is open source software, written by Ceki Gulcu, and
+copyright by SLF4J.ORG and QOS.ch.  The original software is
+available from
+
+   http://www.slf4j.org/
+
+====================================================================
+
+This product includes software developed by Oracle licensed under the
+OTN Development and Distribution License.
+      http://www.oracle.com/
+
+Copyright © 1995-2007, Oracle. All rights reserved.
+====================================================================
+
+This product includes software developed by Oracle licensed under the
+LGPL License.
+      http://www.hibernatespatial.org/
+
+Copyright © 2008 hibernatespatial.org
+====================================================================
+
+This product includes software developed by Oracle licensed under the
+LGPL License.
+      http://www.vividsolutions.com/jts/jtshome.htm
+
+Copyright © 2004 Vivid Solutions Inc.
+====================================================================
+
+This product includes software developed by the Groovy++ Project, a
+Google code project, under the Apache 2 License.
+    http://code.google.com/p/groovypptest/
+
+Copyright 2009-2011 MBTE Sweden AB.
+====================================================================
+
+This product includes software developed by the Protocol Buffers
+project, a Google code project, under a 'New BSD License'.
+    http://code.google.com/p/protobuf/
+====================================================================
