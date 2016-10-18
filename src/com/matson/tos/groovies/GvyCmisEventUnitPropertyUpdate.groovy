@@ -12,20 +12,6 @@
 * A9   02/27/14  RI		 Added method to capture Integration error
 */
 import com.navis.apex.business.model.GroovyInjectionBase
-import com.navis.argo.ContextHelper
-import com.navis.argo.business.api.IServiceEventFieldChange
-import com.navis.argo.business.model.CarrierVisit
-import com.navis.framework.metafields.MetafieldId
-import com.navis.framework.metafields.MetafieldIdFactory
-import com.navis.framework.util.ValueObject
-import com.navis.inventory.InventoryField
-import com.navis.inventory.business.units.EqBaseOrder
-import com.navis.inventory.business.units.Unit
-import com.navis.orders.business.eqorders.Booking
-import com.navis.orders.business.eqorders.EquipmentOrder
-import com.navis.services.business.event.Event
-import com.navis.services.business.event.GroovyEvent
-import com.navis.vessel.business.schedule.VesselVisitDetails
 import org.apache.log4j.Level
 import org.apache.log4j.Logger
 
@@ -125,7 +111,7 @@ public class GvyCmisEventUnitPropertyUpdate
             //3- Set Avail Date
             def availLookup = api.getGroovyClassInstance("GvyAvailDate");
             update =   availLookup.setAvailDate(unit, event);
-            LOGGER.info("---------->Avail Update "+update);
+            api.log("---------->Avail Update "+update);
         }catch(Exception e){
             e.printStackTrace()
         }
@@ -167,17 +153,17 @@ public class GvyCmisEventUnitPropertyUpdate
                         def prevBooking  = gvyEventUtil.getPreviousPropertyAsString(event, "eqboNbr")
                         def gvyCmisUtil = api.getGroovyClassInstance("GvyCmisUtil")
                         //A4 -Starts
-                        /** for multiple units rolled to booking, the values have to be read from the event*/
-                        getUnitRollCarrierVisit// cv.getVo unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")
-
-                        /*vesselCd =  unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdVessel.vesId");
-                        vesVoyageNbr =  unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")*/
+                        def vesselCd =  unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdVessel.vesId");
+                        LOGGER.info("ILB-ISSUE-VESSEL CODE"+vesselCd);
+                        def vesVoyageNbr =  unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")
+                        LOGGER.info("vesVoyageNbr: "+vesVoyageNbr);
                         def gvyUnitReceive = api.getGroovyClassInstance("GvyCmisEventUnitReceive");
                         unitDtl = gvyUnitReceive.processUnitRecieveFull(unitDtl,gvyCmisUtil,vesselCd,vesVoyageNbr,unit)
                         //A4 - Ends
-
+                        LOGGER.info("unitDtl : "+unitDtl);
                         def xmlGvyAcetsStr = gvyCmisUtil.eventSpecificFieldValue(unitDtl,"locationStallConfig=","AO")
                         def xmlGvyUlkStr = gvyCmisUtil.eventSpecificFieldValue(xmlGvyAcetsStr,"bookingNumber=","null")
+                        LOGGER.info("xmlGvyUlkStr : "+xmlGvyUlkStr);
                         gvyCmisUtil.postMsgForAction(xmlGvyUlkStr,api,'ULK')
                         Thread.sleep(2000); //A6
                         gvyCmisUtil.postMsgForAction(xmlGvyAcetsStr,api,'LNK')
@@ -219,56 +205,6 @@ public class GvyCmisEventUnitPropertyUpdate
         return processCmisFeed
     }//Method processCmisFeed ends
 
-    private CarrierVisit getUnitRollCarrierVisit(Object inEvent){
-        /* Get the unit and the Booking */
-        Event ThisEvent = inEvent;
-
-        if (ThisEvent == null)
-            return;
-
-        Unit ThisUnit = (Unit) inEvent.getEntity();
-
-        LOGGER.info("Unit is " + ThisUnit)
-
-        EqBaseOrder ThisBaseOrder = ThisUnit.getDepartureOrder();
-
-        LOGGER.info("Depart order " + ThisBaseOrder)
-
-        EquipmentOrder ThisEqOrd = EquipmentOrder.resolveEqoFromEqbo(ThisBaseOrder);
-
-        LOGGER.info("Equipmnet Order " + ThisEqOrd)
-        Booking ThisBooking = null;
-
-        Iterator fcIt = ThisEvent.getFieldChanges().iterator();
-        String eqboNbr = null;
-        String eqboVisit = null;
-        String eqboDclrdVisit = null;
-        while (fcIt.hasNext()) {
-            IServiceEventFieldChange fc = (IServiceEventFieldChange) fcIt.next();
-            ValueObject fcVao = new ValueObject("IServiceEventFieldChange");
-            MetafieldId metafieldId = MetafieldIdFactory.valueOf(fc.getMetafieldId());
-
-            if (InventoryField.EQBO_NBR.equals(metafieldId)) {
-                eqboNbr = ThisEvent.getFieldChangeValue(metafieldId, fc.getNewVal()).toString();
-            }
-            if (InventoryField.UFV_INTENDED_OB_CV.equals(metafieldId)) {
-                eqboVisit = ThisEvent.getFieldChangeValue(metafieldId, fc.getNewVal()).toString();
-            }
-            if (InventoryField.RTG_DECLARED_CV.equals(metafieldId)) {
-                eqboDclrdVisit = ThisEvent.getFieldChangeValue(metafieldId, fc.getNewVal()).toString();
-            }
-        }
-        if (eqboVisit == null) {
-            eqboVisit = eqboDclrdVisit;
-        }
-        CarrierVisit cv = null;
-        if (eqboNbr != null && eqboVisit != null) {
-            LOGGER.info("eqboNBR : " + eqboNbr + " // eqboVisit : " + eqboVisit);
-            cv = CarrierVisit.findVesselVisit(ContextHelper.getThreadFacility(), eqboVisit);
-        }
-        LOGGER.info("Booking is " + ThisBooking);
-        return cv;
-    }
     public boolean isCargoNoticeSent(){
         return reportProcessing;
     }

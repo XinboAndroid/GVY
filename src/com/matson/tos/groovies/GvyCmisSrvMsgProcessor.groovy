@@ -5,15 +5,10 @@ import com.navis.framework.metafields.MetafieldId
 import com.navis.framework.metafields.MetafieldIdFactory
 import com.navis.framework.util.ValueObject
 import com.navis.inventory.InventoryField
-import com.navis.inventory.business.units.EqBaseOrder
-import com.navis.inventory.business.units.EquipmentState
 import com.navis.inventory.business.units.Unit
-import com.navis.inventory.business.units.UnitEquipment
 import com.navis.orders.business.eqorders.Booking
-import com.navis.orders.business.eqorders.EquipmentOrder
 import com.navis.services.business.event.Event
 import com.navis.services.business.event.GroovyEvent
-import com.navis.vessel.business.schedule.VesselVisitDetails
 import org.apache.log4j.Level
 import org.apache.log4j.Logger
 
@@ -67,14 +62,8 @@ public class GvyCmisSrvMsgProcessor {
 
             //Get Equi SRV
             def unitEquipment = unit.getUnitPrimaryUe()
-            def ueEquipmentState = unitEquipment.getUeEquipmentState();
-
+            def ueEquipmentState = unitEquipment.getUeEquipmentState()
             equipFlex01 = ueEquipmentState != null ? ueEquipmentState.getEqsFlexString01() : ''
-            if (eventType.equals("UNIT_ROLL")) {
-                Booking booking = getBookingFromEvent(event);
-                equipFlex01 = getNewEqFlexString01(event, booking);
-                LOGGER.info("For UNIT_ROLL ueEquipmentState.getEqsFlexString01() value from event is "+equipFlex01);
-            }
 
             //set location status value
             getLocationStatus(unit)
@@ -90,7 +79,7 @@ public class GvyCmisSrvMsgProcessor {
                 processEquiSrvCmisMsg(xmlGvyString,gvyCmisUtil,unit,event,gvyBaseClass,eventType)
               } */
             //Ckeck Client Unit for MTY Freight Kind and Last Departed unit Dport as NIS
-            LOGGER.info("Event type : " + eventType + ", equipFlex01 : " + equipFlex01 + ", freightkind : " + freightkind);
+            LOGGER.info("Event type : "+eventType + ", equipFlex01 : " + equipFlex01 + ", freightkind : " +freightkind);
             if (eventType.equals('UNIT_IN_GATE') && equipFlex01.startsWith("CLI") && freightkind.equals('MTY') /*&& deptUnitIsNisPOD*/) {
                 def xmlGvyCliString = gvyCmisUtil.eventSpecificFieldValue(xmlData, "locationStallConfig=", "AO")
                 gvyCmisUtil.postMsgForAction(xmlGvyCliString, gvyBaseClass, "DEL")
@@ -130,15 +119,21 @@ public class GvyCmisSrvMsgProcessor {
         processEquiSrvCmisMsg(xmlData, gvyCmisUtil, unit, event, gvyBaseClass, eventType, Boolean.FALSE);
     }
     //Method generates Service messages if the OB LineOperator and Equi Operator do not match.
-    public void processEquiSrvCmisMsg(String xmlData, Object gvyCmisUtil, Object unit, Object event, Object gvyBaseClass, String eventType, boolean isAlwaysSendIGT) {
+    public void processEquiSrvCmisMsg(String xmlData, Object gvyCmisUtil, Object unit, Object event, Object gvyBaseClass, String eventType, boolean  isAlwaysSendIGT) {
         try {
-            def obLineOptChnged = verifyEqSrvObLineOperator(unit, eventType, event);
-            LOGGER.warn("obLineOptChnged : " + obLineOptChnged);
-            LOGGER.warn("isAlwaysSendIGT : " + isAlwaysSendIGT);
+            def obLineOptChnged = null;
+
+            if ("UNIT_ROLL".equals(eventType)) {
+                verifyEqSrvObLineOperator(unit, eventType, event, gvyBaseClass);
+            } else {
+                verifyEqSrvObLineOperator(unit, eventType);
+            }
+            LOGGER.warn("obLineOptChnged : "+obLineOptChnged);
+            LOGGER.warn("isAlwaysSendIGT : "+isAlwaysSendIGT);
             //If OB line Operator does not match the Equi Srv field
             if (obLineOptChnged || isAlwaysSendIGT) {
                 //Client(EquiFlex01) to MAT(OB line Operator)
-                LOGGER.warn("processEquiSrvCmisMsg==> equipFlex01 : " + equipFlex01 + ", vesselLineOptr : " + vesselLineOptr);
+                LOGGER.warn("processEquiSrvCmisMsg==> equipFlex01 : "+equipFlex01 + ", vesselLineOptr : "+vesselLineOptr);
                 if (equipFlex01.startsWith("CLI") && vesselLineOptr.equals('MAT')) {
                     clientToMatsonSrvMsg(xmlData, gvyCmisUtil, unit, event, gvyBaseClass)
                 }//MAT(OB line Operator) to Client(EquiFlex01)
@@ -164,7 +159,7 @@ public class GvyCmisSrvMsgProcessor {
 
     //1] Verifies OB LineOperator and Equi Operator match.
     //2] Sets the EquiFlex01 and VesselLineOptr as class variables
-    public boolean verifyEqSrvObLineOperator(Object unit, String eventType, Object inEvent) {
+    public boolean verifyEqSrvObLineOperator(Object unit, String eventType) {
         boolean srvChanged = false
         try {
 
@@ -172,28 +167,52 @@ public class GvyCmisSrvMsgProcessor {
                 vesselLineOptr = unit.getFieldValue("unitPrimaryUe.ueDepartureOrderItem.eqboiOrder.eqoVesselVisit.cvCvd.vvdBizu.bzuId")
             } else if (eventType.equals('UNIT_DISCH_COMPLETE')) {
                 vesselLineOptr = unit.getFieldValue("unitActiveUfv.ufvActualIbCv.cvCvd.vvdBizu.bzuId")
-            } else if (eventType.equals('UNIT_ROLL')) {
-                def gvySrvObj = api.getGroovyClassInstance("GvyCmisEventUnitPropertyUpdate");
-                CarrierVisit cv = gvySrvObj.getUnitRollCarrierVisit();
-                vesselLineOptr = cv.getCvOperator().getBzuId();
-                Booking booking = getBookingFromEvent(inEvent);
-                equipFlex01 = getNewEqFlexString01(inEvent, booking);
-
             } else {
                 vesselLineOptr = unit.getFieldValue("unitActiveUfv.ufvIntendedObCv.cvCvd.vvdBizu.bzuId")
             }
             vesselLineOptr = vesselLineOptr != null ? vesselLineOptr : ''
             //SRV Check
-            LOGGER.warn("equipFlex01: " + equipFlex01 + ", vesselLineOptr : " + vesselLineOptr);
+            LOGGER.warn("equipFlex01: "+equipFlex01 + ", vesselLineOptr : "+vesselLineOptr);
             if (!equipFlex01.equals(vesselLineOptr)) {
                 srvChanged = true
             }
         } catch (Exception e) {
             e.printStackTrace()
         }
-        LOGGER.warn("Service Changed : " + srvChanged);
+        LOGGER.warn("Service Changed : "+srvChanged);
         return srvChanged
     }//Method srvMessageCheck
+
+    public boolean verifyEqSrvObLineOperator(Object unit, String eventType, GroovyEvent event, Object gvyBaseClass) {
+        boolean srvChanged = false
+        try {
+            LOGGER.info("Finding vessel line operator in Event : "+eventType);
+            if (eventType.equals('UNIT_DELIVER')) {
+                vesselLineOptr = unit.getFieldValue("unitPrimaryUe.ueDepartureOrderItem.eqboiOrder.eqoVesselVisit.cvCvd.vvdBizu.bzuId")
+            } else if (eventType.equals('UNIT_DISCH_COMPLETE')) {
+                vesselLineOptr = unit.getFieldValue("unitActiveUfv.ufvActualIbCv.cvCvd.vvdBizu.bzuId")
+            } else {
+                //def bookingGroovy = gvyBaseClass.getGroovyClassInstance("MATSyncUnitFlexWithBooking");
+                LOGGER.info("Finding vessel line operator : "+event);
+                if (event != null && event.getEvent() != null) {
+                    Booking booking = findBookingFromEventChanges(event.getEvent(), unit);
+                    LOGGER.info("Booking from Srv processor : "+booking);
+                    vesselLineOptr = booking.getEqoVesselVisit().getCarrierOperator().getBzuId();
+                    LOGGER.info("Found line Operator : "+vesselLineOptr);
+                }
+            }
+            vesselLineOptr = vesselLineOptr != null ? vesselLineOptr : ''
+            //SRV Check
+            LOGGER.warn("equipFlex01: "+equipFlex01 + ", vesselLineOptr : "+vesselLineOptr);
+            if (!equipFlex01.equals(vesselLineOptr)) {
+                srvChanged = true
+            }
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+        LOGGER.warn("Service Changed : "+srvChanged);
+        return srvChanged
+    }
 
     //Client to Matson Service Cmis Messages also cerating the Release events on active Holds
     public void clientToMatsonSrvMsg(String xmlData, Object gvyCmisUtil, Object unit, Object event, Object gvyBaseClass) {
@@ -205,11 +224,11 @@ public class GvyCmisSrvMsgProcessor {
             def xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "locationStallConfig=", "AO")
             xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, "truck=", "ZZZZ")
 
-            LOGGER.warn("locationStatus : " + locationStatus);
+            LOGGER.warn("locationStatus : "+locationStatus);
             if (locationStatus.equals("1")) {
                 xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, "locationStatus=", "3")
                 gvyCmisUtil.postMsgForAction(xmlSrvCmisMsg, gvyBaseClass, "ADD")
-                LOGGER.warn("event.event.eventTypeId : " + event.event.eventTypeId);
+                LOGGER.warn("event.event.eventTypeId : "+event.event.eventTypeId);
                 if (!'UNIT_IN_GATE'.equals(event.event.eventTypeId)) {
                     xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, "locationStatus=", "1")
                     //A9 -- FOR CLI VESSEL
@@ -218,12 +237,12 @@ public class GvyCmisSrvMsgProcessor {
                     obVesClass = obVesClass != null ? obVesClass.getKey() : ''
                     xmlSrvCmisMsg = gvyCmisUtil.setVesvoyFields(unit, xmlSrvCmisMsg, carrierId, obVesClass) //A11
                     def bookingNumber = unit.getFieldValue("unitPrimaryUe.ueDepartureOrderItem.eqboiOrder.eqboNbr");
-                    def freightkind = unit.getFieldValue("unitFreightKind");
+                    def freightkind=unit.getFieldValue("unitFreightKind");
                     freightkind = freightkind != null ? freightkind.getKey() : ''
-                    if (bookingNumber != null && carrierId != null && freightkind != null && (freightkind.equals('MTY'))) {
-                        def vesVoyageNbr = unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")
+                    if (bookingNumber!= null && carrierId!=null && freightkind!= null && (freightkind.equals('MTY'))) {
+                        def vesVoyageNbr =  unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")
                         def unitReceiveObj = gvyBaseClass.getGroovyClassInstance("GvyCmisEventUnitReceive");
-                        xmlSrvCmisMsg = unitReceiveObj.processUnitRecieveFull(xmlSrvCmisMsg, gvyCmisUtil, carrierId, vesVoyageNbr, unit)
+                        xmlSrvCmisMsg=unitReceiveObj.processUnitRecieveFull(xmlSrvCmisMsg, gvyCmisUtil,carrierId, vesVoyageNbr,unit)
                     }
                     LOGGER.warn("Triggering IGT now");
                     gvyCmisUtil.postMsgForAction(xmlSrvCmisMsg, gvyBaseClass, "IGT") //A1 For unitRoll
@@ -362,124 +381,52 @@ public class GvyCmisSrvMsgProcessor {
         return departedUnit
     }
 
-    public Booking getBookingFromEvent(Object inEvent) {
-        /* Get the unit and the Booking */
-        Event ThisEvent = inEvent;
-
-        if (ThisEvent == null)
-            return;
-
-        Unit ThisUnit = (Unit) inEvent.getEntity();
-
-        this.log("Unit is " + ThisUnit)
-
-        EqBaseOrder ThisBaseOrder = ThisUnit.getDepartureOrder();
-
-        this.log("Depart order " + ThisBaseOrder)
-
-        EquipmentOrder ThisEqOrd = EquipmentOrder.resolveEqoFromEqbo(ThisBaseOrder);
-
-        this.log("Equipmnet Order " + ThisEqOrd)
-        Booking ThisBooking = null;
-
-        Iterator fcIt = ThisEvent.getFieldChanges().iterator();
+    public Booking findBookingFromEventChanges(Event event, Unit ThisUnit) {
+        Booking  booking = null;
+        Iterator fcIt = event.getFieldChanges().iterator();
         String eqboNbr = null;
         String eqboVisit = null;
         String eqboDclrdVisit = null;
-        while (fcIt.hasNext()) {
-            IServiceEventFieldChange fc = (IServiceEventFieldChange) fcIt.next();
-            ValueObject fcVao = new ValueObject("IServiceEventFieldChange");
+        while(fcIt.hasNext()) {
+            IServiceEventFieldChange fc = (IServiceEventFieldChange)fcIt.next();
             MetafieldId metafieldId = MetafieldIdFactory.valueOf(fc.getMetafieldId());
             /*fcVao.setFieldValue(ArgoBizMetafield.EVENT_FIELD_CHANGE_METAFIELD_ID, metafieldId);
             fcVao.setFieldValue(ArgoBizMetafield.EVENT_FIELD_CHANGE_PREV_VALUE, ThisEvent.getFieldChangeValue(metafieldId, fc.getPrevVal()));
             fcVao.setFieldValue(ArgoBizMetafield.EVENT_FIELD_CHANGE_NEW_VALUE, ThisEvent.getFieldChangeValue(metafieldId, fc.getNewVal()));*/
-            this.log("Field : " + metafieldId.toString());
-            this.log("Prev Value : " + ThisEvent.getFieldChangeValue(metafieldId, fc.getPrevVal()).toString());
-            this.log("New Value  : " + ThisEvent.getFieldChangeValue(metafieldId, fc.getNewVal()).toString());
 
             if (InventoryField.EQBO_NBR.equals(metafieldId)) {
-                eqboNbr = ThisEvent.getFieldChangeValue(metafieldId, fc.getNewVal()).toString();
+                eqboNbr = event.getFieldChangeValue(metafieldId, fc.getNewVal()).toString();
             }
             if (InventoryField.UFV_INTENDED_OB_CV.equals(metafieldId)) {
-                eqboVisit = ThisEvent.getFieldChangeValue(metafieldId, fc.getNewVal()).toString();
+                eqboVisit = event.getFieldChangeValue(metafieldId, fc.getNewVal()).toString();
             }
             if (InventoryField.RTG_DECLARED_CV.equals(metafieldId)) {
-                eqboDclrdVisit = ThisEvent.getFieldChangeValue(metafieldId, fc.getNewVal()).toString();
+                eqboDclrdVisit = event.getFieldChangeValue(metafieldId, fc.getNewVal()).toString();
             }
         }
         if (eqboVisit == null) {
             eqboVisit = eqboDclrdVisit;
         }
         if (eqboNbr != null && eqboVisit != null) {
-            this.log("eqboNBR : " + eqboNbr + " // eqboVisit : " + eqboVisit);
+            LOGGER.info("eqboNBR : "+eqboNbr + " // eqboVisit : "+eqboVisit);
             CarrierVisit cv = CarrierVisit.findVesselVisit(ContextHelper.getThreadFacility(), eqboVisit);
-            ThisBooking = Booking.findBooking(eqboNbr, ThisUnit.getUnitLineOperator(), cv);
-            if (ThisBooking == null) {
+            booking = Booking.findBooking(eqboNbr, ThisUnit.getUnitLineOperator(), cv);
+            if (booking == null) {
                 try {
-                    ThisBooking = Booking.findBookingWithoutLine(eqboNbr, cv);
+                    booking = Booking.findBookingWithoutLine(eqboNbr, cv);
                 } catch (Exception e) {
-                    this.log("Couldnt find the booking with eqboNbr and Visit")
+                    LOGGER.error("Couldnt find the booking with eqboNbr and Visit");
                 }
             }
-            if (ThisBooking == null) {
+            if (booking == null) {
                 try {
-                    ThisBooking = Booking.findBookingsByNbr(eqboNbr);
+                    booking = Booking.findBookingsByNbr(eqboNbr);
                 } catch (Exception e) {
-                    this.log("Couldnt find the booking only with eqboNbr")
+                    LOGGER.error("Couldnt find the booking only with eqboNbr");
                 }
             }
         }
-        this.log("Booking from new value is " + ThisBooking)
-        if (ThisBooking == null) {
-            ThisBooking = Booking.resolveBkgFromEqo(ThisEqOrd);
-        }
-
-        this.log("Booking is " + ThisBooking);
-        return ThisBooking;
+        return booking;
     }
 
-    public String getNewEqFlexString01(Object inEvent, Booking thisBooking) {
-        String srvId = "MAT";
-        LOGGER.setLevel(Level.DEBUG);
-        LOGGER.info("Inside GvyCmisEquiDetail.setEqCntrSvr")
-        Event event = inEvent;
-        Unit unit = event.getEntity();
-
-        String eventId = event.getEvent().getEventTypeId()
-        LOGGER.debug("Event ID  " + eventId);
-        try {
-            //Get Equi SRV
-            UnitEquipment unitEquipment = unit.getUnitPrimaryUe()
-            LOGGER.debug("Unit Equipment    " + unitEquipment);
-            EquipmentState ueEquipmentState = unitEquipment.getUeEquipmentState()
-            String equipFlex01 = ueEquipmentState != null ? ueEquipmentState.getEqsFlexString01() : null
-            LOGGER.info("getEqsFlexString01/ Eq Srv Company : " + equipFlex01);
-            if (equipFlex01 != null && !(eventId.equals('UNIT_DISCH_COMPLETE') || eventId.equals('UNIT_IN_GATE') ||
-                    eventId.equals('UNIT_ROLL'))) {
-                return;
-            }
-            String unitLineOperator = unit.getFieldValue("unitPrimaryUe.ueEquipmentState.eqsEqOperator.bzuId")
-            LOGGER.info("Unit Line Operator " + unitLineOperator);
-            unitLineOperator = unitLineOperator != null ? unitLineOperator : ''
-            String equiSrv = "";
-            String vesLineOptr = "";
-            //Thread.sleep(1000);
-            if (eventId.equals('UNIT_ROLL')) {
-                //Ingate Bkg Line Operator
-//                vesLineOptr = unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdBizu.bzuId");
-                vesLineOptr = thisBooking.getEqoVesselVisit().getCarrierOperator().getBzuId();
-                LOGGER.debug(unit.getUnitId() + " ->Value of UNIT OB vesLineOptr from Object is " + vesLineOptr);
-            }
-            LOGGER.info("vesLineOptr    " + vesLineOptr + " : unitLineOperator " + unitLineOperator);
-            //verify and set EqSrv Cntr
-            vesLineOptr = vesLineOptr != null ? vesLineOptr : (unitLineOperator.equals('MAT') ? 'MAT' : '')
-            vesLineOptr = !vesLineOptr.equals('MAT') ? 'CLI' : 'MAT'
-            LOGGER.debug("Value of vesLineOptr after manipulation is    " + vesLineOptr);
-            LOGGER.info("eventId ::" + eventId + " Eq SRV :" + equipFlex01 + " vesLineOptr :" + vesLineOptr + "    unitLineOperator::" + unitLineOperator)
-            srvId = vesLineOptr;
-        } catch (Exception e) {
-            e.printStackTrace()
-        }
-        return srvId;
-    }
 }// Class Ends
