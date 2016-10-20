@@ -177,7 +177,7 @@ public class GvyCmisEventUnitPropertyUpdate
                         LOGGER.info("vesVoyageNbr: "+vesVoyageNbr);
                         //A101 - Ends
                         def gvyUnitReceive = api.getGroovyClassInstance("GvyCmisEventUnitReceive");
-                        unitDtl = gvyUnitReceive.processUnitRecieveFull(unitDtl,gvyCmisUtil,vesselCd,vesVoyageNbr,unit)
+                        unitDtl = gvyUnitReceive.processUnitRecieveFull(unitDtl,gvyCmisUtil,vesselCd,vesVoyageNbr,unit,Boolean.TRUE)
                         //A4 - Ends
                         LOGGER.info("unitDtl : "+unitDtl);
                         def xmlGvyAcetsStr = gvyCmisUtil.eventSpecificFieldValue(unitDtl,"locationStallConfig=","AO")

@@ -117,7 +117,11 @@ public class GvyCmisEventUnitReceive
 
    }
 
-    public String processUnitRecieveFull(String xmlGvyData,Object gvyCmisUtil,String vesselCd, Object vesVoyageNbr,Object unit)
+    public String processUnitRecieveFull(String xmlGvyData,Object gvyCmisUtil,String vesselCd, Object vesVoyageNbr,Object unit){
+        processUnitRecieveFull( xmlGvyData, gvyCmisUtil, vesselCd,  vesVoyageNbr, unit, Boolean.FALSE);
+    }
+
+    public String processUnitRecieveFull(String xmlGvyData,Object gvyCmisUtil,String vesselCd, Object vesVoyageNbr,Object unit,Boolean inUseSuppliedCvId)
    {
        def xmlGvyString = xmlGvyData
       try
@@ -126,8 +130,10 @@ public class GvyCmisEventUnitReceive
        def actualVoyage = 'null'
        def leg = 'null'
       //ACTUAL VESSEL,ACTUAL VOYAGE,LEG
-      def ObCarrier =  unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvId");     
-      ObCarrier = ObCarrier != null ? ObCarrier : ""
+         def ObCarrier = vesselCd + vesVoyageNbr;
+         if (!inUseSuppliedCvId)
+             ObCarrier = unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvId");
+         ObCarrier = ObCarrier != null ? ObCarrier : ""
      //POL & POD
      def loadPort = unit.getFieldValue("unitRouting.rtgPOL.pointId")
      def dischargePort = unit.getFieldValue("unitRouting.rtgPOD1.pointId")
