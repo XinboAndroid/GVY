@@ -197,8 +197,13 @@ public class GvyCmisSrvMsgProcessor {
                 if (event != null && event.getEvent() != null) {
                     Booking booking = findBookingFromEventChanges(event.getEvent(), unit);
                     LOGGER.info("Booking from Srv processor : "+booking);
-                    vesselLineOptr = booking.getEqoVesselVisit().getCarrierOperator().getBzuId();
-                    LOGGER.info("Found line Operator : "+vesselLineOptr);
+                    if (booking != null) {
+                        vesselLineOptr = booking.getEqoVesselVisit().getCarrierOperator().getBzuId();
+                        LOGGER.info("Found line Operator : " + vesselLineOptr);
+                    } else if (booking == null) {
+                        vesselLineOptr = unit.getFieldValue("unitActiveUfv.ufvIntendedObCv.cvCvd.vvdBizu.bzuId");
+                        LOGGER.info("No booking found, setting line operator to " + vesselLineOptr);
+                    }
                 }
             }
             vesselLineOptr = vesselLineOptr != null ? vesselLineOptr : ''

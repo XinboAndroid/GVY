@@ -163,21 +163,40 @@ public class GvyCmisEventUnitPropertyUpdate
                          * The vesselCd & vesVoyageNbr has to be read from the Field Changes (not from the unit)
                          */
                         def GvyCmisSrvMsgProcessor = api.getGroovyClassInstance("GvyCmisSrvMsgProcessor");
-                        Booking booking=GvyCmisSrvMsgProcessor.findBookingFromEventChanges(event.getEvent(),unit);
+                        Booking booking = null;
+                        VesselVisitDetails vvd = null;
+                        def vesselCd = null;
+                        def vesVoyageNbr = null;
+                        Boolean inUseSuppliedCvId = Boolean.FALSE;
+                        try {
+                            booking = GvyCmisSrvMsgProcessor.findBookingFromEventChanges(event.getEvent(), unit);
                         LOGGER.info("Booking from Srv processor : "+booking);
-                        VesselVisitDetails vvd = VesselVisitDetails.resolveVvdFromCv(booking.getEqoVesselVisit());
+                            if (booking != null) {
+                                vvd = VesselVisitDetails.resolveVvdFromCv(booking.getEqoVesselVisit());
+                                if (vvd != null) {
                         LOGGER.info("VesselVisitDetails resolved from booking : "+vvd);
-                        def vesselCd =  vvd.getVvdVessel().getVesId();
+                                    vesselCd = vvd.getVvdVessel().getVesId();
                         LOGGER.info("Value of Vessel Code from Unit is : "+
                                 unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdVessel.vesId")+" from Field Changes is : "+vesselCd);
                         LOGGER.info("vesselCd: "+vesselCd);
-                        def vesVoyageNbr =  vvd.getVvdObVygNbr();
+                                    vesVoyageNbr = vvd.getVvdObVygNbr();
                         LOGGER.info("Value of voyage Number from Unit is : "+
                                 unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")+" from Field Changes is : "+vesVoyageNbr);
                         LOGGER.info("vesVoyageNbr: "+vesVoyageNbr);
+                                    inUseSuppliedCvId = Boolean.TRUE;
+                                }
+                            }
                         //A101 - Ends
+                        } catch (Exception ex) {
+                            LOGGER.error("Error in determining VesselCd and Voyage Number ", ex);
+                        }
+
+                        if (vesselCd == null && vesVoyageNbr == null) {
+                            vesselCd = unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdVessel.vesId");
+                            vesVoyageNbr = unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")
+                        }
                         def gvyUnitReceive = api.getGroovyClassInstance("GvyCmisEventUnitReceive");
-                        unitDtl = gvyUnitReceive.processUnitRecieveFull(unitDtl,gvyCmisUtil,vesselCd,vesVoyageNbr,unit,Boolean.TRUE)
+                        unitDtl = gvyUnitReceive.processUnitRecieveFull(unitDtl, gvyCmisUtil, vesselCd, vesVoyageNbr, unit, inUseSuppliedCvId)
                         //A4 - Ends
                         LOGGER.info("unitDtl : "+unitDtl);
                         def xmlGvyAcetsStr = gvyCmisUtil.eventSpecificFieldValue(unitDtl,"locationStallConfig=","AO")

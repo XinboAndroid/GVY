@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="54d340cd-ce71-4291-a60b-a2d29cc12b0f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEventUnitPropertyUpdate.groovy" />
+    <list id="54d340cd-ce71-4291-a60b-a2d29cc12b0f" name="Default" comment="" />
+    <list default="true" id="998b4af7-fd38-40a6-b332-6afef28adf44" name="IGT Missing in UNIT_ROLL" comment="IGT Missing in UNIT_ROLL">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEventUnitPropertyUpdate.groovy" afterPath="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEventUnitPropertyUpdate.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisSrvMsgProcessor.groovy" afterPath="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisSrvMsgProcessor.groovy" />
     </list>
     <ignored path="GVY.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,25 +43,49 @@
       <file leaf-file-name="MATSyncUnitFlexWithBooking.groovy" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/MATSyncUnitFlexWithBooking.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1287">
-              <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+            <state relative-caret-position="177">
+              <caret line="84" column="50" selection-start-line="0" selection-start-column="0" selection-end-line="237" selection-end-column="1" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#62#97#0" expanded="true" />
-                <element signature="n#!!block;n#getNewEqFlexString01#0;n#!!block;n#MATSyncUnitFlexWithBooking#0" expanded="false" />
+                <element signature="e#63#101#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GvyCmisEventUnitPropertyUpdate.groovy" pinned="true" current-in-tab="true">
+      <file leaf-file-name="GvyCmisEventUnitPropertyUpdate.groovy" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEventUnitPropertyUpdate.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-536">
-              <caret line="221" column="48" selection-start-line="221" selection-start-column="25" selection-end-line="221" selection-end-column="48" />
+            <state relative-caret-position="128">
+              <caret line="187" column="29" selection-start-line="187" selection-start-column="29" selection-end-line="187" selection-end-column="29" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#747#803#0" expanded="true" />
+                <element signature="e#904#960#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GvyCmisEventUnitReceive.groovy" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEventUnitReceive.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="123" column="152" selection-start-line="123" selection-start-column="135" selection-end-line="123" selection-end-column="152" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#7465#10051#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MATUpdateContainerOperatorOnStrip.groovy" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/MATUpdateContainerOperatorOnStrip.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1751">
+              <caret line="103" column="45" selection-start-line="103" selection-start-column="45" selection-end-line="103" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,49 +94,40 @@
       <file leaf-file-name="GvyCmisSrvMsgProcessor.groovy" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisSrvMsgProcessor.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="176" column="67" selection-start-line="176" selection-start-column="44" selection-end-line="176" selection-end-column="67" />
+            <state relative-caret-position="145">
+              <caret line="204" column="62" selection-start-line="204" selection-start-column="62" selection-end-line="204" selection-end-column="62" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <element signature="n#!!block;n#clientToMatsonSrvMsg#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-                <element signature="n#!!block;n#matsonToClientSrvMsg#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-                <element signature="e#16040#17373#0" expanded="false" />
-                <element signature="e#16519#17141#0" expanded="false" />
-                <element signature="e#17147#17363#0" expanded="false" />
-                <element signature="e#17394#17437#0" expanded="false" />
-                <element signature="e#17394#17437#0" expanded="false" />
-                <element signature="n#!!block;n#getDepartedUnitBkgNum#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-                <element signature="e#17641#18105#0" expanded="false" />
-                <element signature="e#17681#18095#0" expanded="false" />
-                <element signature="e#17941#18081#1" expanded="false" />
-                <element signature="e#17941#18081#0" expanded="false" />
-                <element signature="e#17941#18081#1" expanded="false" />
-                <element signature="e#18126#18169#0" expanded="false" />
-                <element signature="e#18126#18169#0" expanded="false" />
-                <element signature="n#!!block;n#processEquiSrvClientUnit#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-                <element signature="e#18577#19805#0" expanded="false" />
-                <element signature="e#18757#19398#0" expanded="false" />
-                <element signature="e#19014#19339#0" expanded="false" />
-                <element signature="e#19411#19635#0" expanded="false" />
-                <element signature="e#19826#19869#0" expanded="false" />
-                <element signature="e#19826#19869#0" expanded="false" />
-                <element signature="n#!!block;n#getLocationStatus#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-                <element signature="n#!!block;n#getDepartedUnit#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-                <element signature="e#20524#20708#0" expanded="false" />
-                <element signature="e#20729#20772#0" expanded="false" />
-                <element signature="e#20729#20772#0" expanded="false" />
-                <element signature="n#!!block;n#getBookingFromEvent#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-                <element signature="n#!!block;n#getNewEqFlexString01#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VesselHbr.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/n4-vessel.jar!/com/navis/vessel/business/operation/VesselHbr.class">
+      <file leaf-file-name="GvySnxUpdateProcessor.groovy" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/GvySnxUpdateProcessor.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+            <state relative-caret-position="120">
+              <caret line="384" column="35" selection-start-line="384" selection-start-column="35" selection-end-line="384" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServicesManager.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/api/ServicesManager.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="73" column="17" selection-start-line="73" selection-start-column="17" selection-end-line="73" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServicesManagerPea.class" pinned="false" current-in-tab="true">
+        <entry file="jar://$PROJECT_DIR$/lib/n4-services.jar!/com/navis/services/business/rules/ServicesManagerPea.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="562">
+              <caret line="315" column="40" selection-start-line="315" selection-start-column="25" selection-end-line="315" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -127,6 +144,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -136,8 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/StripUnit.groovy" />
-        <option value="C:/apps/apex/WEB-INF/lib/n4-road.jar!/com/navis/road/business/model/DocumentHbr.class" />
         <option value="$PROJECT_DIR$/lib/commons-net.jar!/org/apache/commons/net/ftp/FTPClient.class" />
         <option value="$PROJECT_DIR$/src/codeExtensions/MatsonAncFtpAdaptor.groovy" />
         <option value="$PROJECT_DIR$/src/codeExtensions/GEMSPreTripCheck.groovy" />
@@ -184,9 +202,11 @@
         <option value="$PROJECT_DIR$/src/com/matson/tos/groovies/TestGroovy.groovy" />
         <option value="$PROJECT_DIR$/src/codeExtensions/MATUnitRollBookingUpdateExt.groovy" />
         <option value="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEquiDetail.groovy" />
-        <option value="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisSrvMsgProcessor.groovy" />
         <option value="$PROJECT_DIR$/src/com/matson/tos/groovies/MATSyncUnitFlexWithBooking.groovy" />
+        <option value="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+        <option value="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEventUnitReceive.groovy" />
         <option value="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEventUnitPropertyUpdate.groovy" />
+        <option value="$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisSrvMsgProcessor.groovy" />
       </list>
     </option>
   </component>
@@ -240,7 +260,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -253,115 +273,35 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="groovies" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GVY" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="codeExtensions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="Groovy compiler" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="C:/gitlab" />
     <property name="FullScreen" value="false" />
     <property name="dynamic.classpath" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="155" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="155" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="155" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="829" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="159" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="148" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="154" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="833" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -537,12 +477,12 @@
     <editor active="false" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35951662" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35951662" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5925297" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5911414" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18806647" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -570,7 +510,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -587,12 +527,12 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33023256" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34441087" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.59625214" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35951662" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5925297" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -607,6 +547,12 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="A101 10/18/16  KR      Read VesselCd and voyagenumber from Field changes, not from Unit.Enhancement for UNIT_ROLL IGT messages" />
+    <MESSAGE value="IGT Missing in UNIT_ROLL" />
+    <option name="LAST_COMMIT_MESSAGE" value="IGT Missing in UNIT_ROLL" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="5" />
@@ -618,37 +564,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/lib/n4-inventory.jar!/com/navis/inventory/business/units/EqBaseOrderHbr.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/n4-inventory.jar!/com/navis/inventory/business/units/EqBaseOrder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/n4-inventory.jar!/com/navis/inventory/business/units/EqBaseOrderItemHbr.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="88" column="14" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MtyFructoseStripUnit.groovy" />
-    <entry file="jar://$PROJECT_DIR$/lib/n4-orders.jar!/com/navis/orders/business/eqorders/EquipmentOrderHbr.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2924">
-          <caret line="301" column="17" selection-start-line="301" selection-start-column="17" selection-end-line="301" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GvyCmisEquiDetail.groovy" />
-    <entry file="file://$PROJECT_DIR$/src/GvyNOA.groovy" />
     <entry file="file://$PROJECT_DIR$/src/GvyRefDataLookup.groovy" />
     <entry file="file://$PROJECT_DIR$/src/NowChassisTrackingBuilder.groovy" />
     <entry file="file://$PROJECT_DIR$/src/GvyCmisShipmentDetail.groovy" />
@@ -815,9 +730,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2142">
           <caret line="131" column="18" selection-start-line="131" selection-start-column="18" selection-end-line="131" selection-end-column="18" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -839,54 +751,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/model/VisitDetailsHbr.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/codeExtensions/MATBargeStowplan.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="67" column="6" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/n4-vessel.jar!/com/navis/vessel/business/schedule/VesselVisitDetails.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="105" column="52" selection-start-line="105" selection-start-column="52" selection-end-line="105" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/model/VisitDetails.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="49" column="50" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/n4-vessel.jar!/com/navis/vessel/business/operation/Vessel.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="44" column="34" selection-start-line="44" selection-start-column="34" selection-end-line="44" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/n4-vessel.jar!/com/navis/vessel/business/schedule/VesselVisitDetailsHbr.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="462" column="15" selection-start-line="462" selection-start-column="15" selection-end-line="462" selection-end-column="15" />
-          <folding>
-            <element signature="e#12540#12541#0" expanded="true" />
-            <element signature="e#12577#12578#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -904,7 +772,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -912,10 +779,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="78" column="18" selection-start-line="78" selection-start-column="18" selection-end-line="78" selection-end-column="28" />
-          <folding>
-            <element signature="e#2344#2345#0" expanded="true" />
-            <element signature="e#2377#2378#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -923,26 +786,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="40" column="42" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/model/CarrierVisitHbr.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="178" column="19" selection-start-line="178" selection-start-column="19" selection-end-line="178" selection-end-column="19" />
-          <folding>
-            <element signature="e#4585#4586#0" expanded="true" />
-            <element signature="e#4623#4624#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/model/CarrierVisit.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="63" column="41" selection-start-line="63" selection-start-column="41" selection-end-line="63" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -966,7 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
           <caret line="164" column="15" selection-start-line="164" selection-start-column="15" selection-end-line="164" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -978,65 +820,144 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/MATSyncUnitFlexWithBooking.groovy">
+    <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/model/VisitDetailsHbr.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1287">
-          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+        <state relative-caret-position="102">
+          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/codeExtensions/MATBargeStowplan.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="115" column="73" selection-start-line="115" selection-start-column="8" selection-end-line="115" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/n4-orders.jar!/com/navis/orders/business/eqorders/EquipmentOrderHbr.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="301" column="24" selection-start-line="301" selection-start-column="24" selection-end-line="301" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/n4-vessel.jar!/com/navis/vessel/business/schedule/VesselVisitDetailsHbr.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/n4-vessel.jar!/com/navis/vessel/business/schedule/VesselVisitDetails.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="105" column="52" selection-start-line="105" selection-start-column="52" selection-end-line="105" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/model/CarrierVisitHbr.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/model/CarrierVisit.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="63" column="43" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/model/VisitDetails.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="201" column="18" selection-start-line="201" selection-start-column="18" selection-end-line="201" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/MATUpdateContainerOperatorOnStrip.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1751">
+          <caret line="103" column="45" selection-start-line="103" selection-start-column="45" selection-end-line="103" selection-end-column="45" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#62#97#0" expanded="true" />
-            <element signature="n#!!block;n#getNewEqFlexString01#0;n#!!block;n#MATSyncUnitFlexWithBooking#0" expanded="false" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisSrvMsgProcessor.groovy">
+    <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEventUnitReceive.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="176" column="67" selection-start-line="176" selection-start-column="44" selection-end-line="176" selection-end-column="67" />
+        <state relative-caret-position="179">
+          <caret line="123" column="152" selection-start-line="123" selection-start-column="135" selection-end-line="123" selection-end-column="152" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="n#!!block;n#clientToMatsonSrvMsg#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-            <element signature="n#!!block;n#matsonToClientSrvMsg#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-            <element signature="e#16040#17373#0" expanded="false" />
-            <element signature="e#16519#17141#0" expanded="false" />
-            <element signature="e#17147#17363#0" expanded="false" />
-            <element signature="e#17394#17437#0" expanded="false" />
-            <element signature="e#17394#17437#0" expanded="false" />
-            <element signature="n#!!block;n#getDepartedUnitBkgNum#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-            <element signature="e#17641#18105#0" expanded="false" />
-            <element signature="e#17681#18095#0" expanded="false" />
-            <element signature="e#17941#18081#1" expanded="false" />
-            <element signature="e#17941#18081#0" expanded="false" />
-            <element signature="e#17941#18081#1" expanded="false" />
-            <element signature="e#18126#18169#0" expanded="false" />
-            <element signature="e#18126#18169#0" expanded="false" />
-            <element signature="n#!!block;n#processEquiSrvClientUnit#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-            <element signature="e#18577#19805#0" expanded="false" />
-            <element signature="e#18757#19398#0" expanded="false" />
-            <element signature="e#19014#19339#0" expanded="false" />
-            <element signature="e#19411#19635#0" expanded="false" />
-            <element signature="e#19826#19869#0" expanded="false" />
-            <element signature="e#19826#19869#0" expanded="false" />
-            <element signature="n#!!block;n#getLocationStatus#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-            <element signature="n#!!block;n#getDepartedUnit#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-            <element signature="e#20524#20708#0" expanded="false" />
-            <element signature="e#20729#20772#0" expanded="false" />
-            <element signature="e#20729#20772#0" expanded="false" />
-            <element signature="n#!!block;n#getBookingFromEvent#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
-            <element signature="n#!!block;n#getNewEqFlexString01#0;n#!!block;n#GvyCmisSrvMsgProcessor#0" expanded="false" />
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#7465#10051#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/MATSyncUnitFlexWithBooking.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="84" column="50" selection-start-line="0" selection-start-column="0" selection-end-line="237" selection-end-column="1" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#63#101#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisEventUnitPropertyUpdate.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-536">
-          <caret line="221" column="48" selection-start-line="221" selection-start-column="25" selection-end-line="221" selection-end-column="48" />
+        <state relative-caret-position="128">
+          <caret line="187" column="29" selection-start-line="187" selection-start-column="29" selection-end-line="187" selection-end-column="29" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#747#803#0" expanded="true" />
+            <element signature="e#904#960#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/GvyCmisSrvMsgProcessor.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="204" column="62" selection-start-line="204" selection-start-column="62" selection-end-line="204" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/matson/tos/groovies/GvySnxUpdateProcessor.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="384" column="35" selection-start-line="384" selection-start-column="35" selection-end-line="384" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/n4-argo.jar!/com/navis/argo/business/api/ServicesManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="73" column="17" selection-start-line="73" selection-start-column="17" selection-end-line="73" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/n4-services.jar!/com/navis/services/business/rules/ServicesManagerPea.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="562">
+          <caret line="315" column="40" selection-start-line="315" selection-start-column="25" selection-end-line="315" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
