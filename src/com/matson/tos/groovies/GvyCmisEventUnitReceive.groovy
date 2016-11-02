@@ -9,15 +9,21 @@
 * A7   GR   03/08/11    Set Obcarrier for SIT_UNASSIGN comming back as Export 
 * A8   GR   04/28/11    TT#007772 HAZ dropped inversion file 1.4 TT#007772 
 * A9   GR   05/18/11    set YardLocation for WO,P2,PassPass Gate Ingate and Outgate cntr
-                        for GateTypeCode Report 
+                        for GateTypeCode Report
+* A101 KR   11/02/16    Adapter for processUnitRecieveFull
+*                       processUnitRecieveFull to use supplied values for vessel, voyage, booking (pol, pod)
+*
 */
 import com.navis.argo.ContextHelper
 import com.navis.argo.business.reference.Equipment;
 import com.navis.apex.business.model.GroovyInjectionBase
+import com.navis.orders.business.eqorders.Booking
+import org.apache.log4j.Logger
 
 public class GvyCmisEventUnitReceive
 {
      def gvyCmisUtil = null
+    private static final Logger LOGGER = Logger.getLogger(GvyCmisEventUnitReceive.class);
 
     public String processUnitRecieve(String xmlGvyData, Object unit,Object gvyBaseClass)
     {
@@ -72,7 +78,7 @@ public class GvyCmisEventUnitReceive
 
    public String processUnitRecieveEmpty(String xmlGvyData,Object gvyCmisUtil)
    {
-	println("Empty unit method called::::");
+       LOGGER.info("Empty unit method called::::");
       try
       {
          def xmlGvyString = xmlGvyData 
@@ -117,40 +123,53 @@ public class GvyCmisEventUnitReceive
 
    }
 
+    public String processUnitRecieveFull(String xmlGvyData, Object gvyCmisUtil, String vesselCd, Object vesVoyageNbr, Object unit, Boolean inUseSuppliedCvId) {
+        processUnitRecieveFull(xmlGvyData, gvyCmisUtil, vesselCd, vesVoyageNbr, unit, null, Boolean.FALSE);
+    }
     public String processUnitRecieveFull(String xmlGvyData,Object gvyCmisUtil,String vesselCd, Object vesVoyageNbr,Object unit){
         processUnitRecieveFull( xmlGvyData, gvyCmisUtil, vesselCd,  vesVoyageNbr, unit, Boolean.FALSE);
     }
 
-    public String processUnitRecieveFull(String xmlGvyData,Object gvyCmisUtil,String vesselCd, Object vesVoyageNbr,Object unit,Boolean inUseSuppliedCvId)
+    public String processUnitRecieveFull(String inXmlGvyData, Object inGvyCmisUtil, String inVesselCd, Object inVoyageNbr, Object inUnit, Booking inBooking, Boolean inUseSuppliedCvId)
    {
-       def xmlGvyString = xmlGvyData
+       if (inUseSuppliedCvId)
+           LOGGER.info("Using the value of VVD from the input file\t" + inVesselCd + inVoyageNbr);
+       def xmlGvyString = inXmlGvyData
       try
      {
        def actualVessel = 'null'
        def actualVoyage = 'null'
        def leg = 'null'
       //ACTUAL VESSEL,ACTUAL VOYAGE,LEG
-         def ObCarrier = vesselCd + vesVoyageNbr;
+         def ObCarrier = inVesselCd + inVoyageNbr;
          if (!inUseSuppliedCvId)
-             ObCarrier = unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvId");
+             ObCarrier = inUnit.getFieldValue("unitActiveUfv.ufvActualObCv.cvId");
          ObCarrier = ObCarrier != null ? ObCarrier : ""
      //POL & POD
-     def loadPort = unit.getFieldValue("unitRouting.rtgPOL.pointId")
-     def dischargePort = unit.getFieldValue("unitRouting.rtgPOD1.pointId")
-     def vesselType = gvyCmisUtil.getVesselClassForVesCode(vesselCd)
+         def loadPort = inUnit.getFieldValue("unitRouting.rtgPOL.pointId")
+         def dischargePort = inUnit.getFieldValue("unitRouting.rtgPOD1.pointId")
+         if (inUseSuppliedCvId && inBooking != null) {
+             /*
+             Compute load and discharge port from booking object
+              */
+             LOGGER.info("The Method Call requires using pol and pod from booking\t" + inBooking);
+             loadPort = inBooking.getEqoPol().getPointId();
+             dischargePort = inBooking.getEqoPod1().getPointId();
+         }
+         def vesselType = inGvyCmisUtil.getVesselClassForVesCode(inVesselCd)
 
-     def dibcarrierId = unit.getFieldValue("unitDeclaredIbCv.cvId")
-     def cmdyId = unit.getFieldValue("unitGoods.gdsCommodity.cmdyId"); 
-	 	 
-     def _category= unit.getFieldValue("unitCategory")
-     def categoryKey = _category != null ? _category.getKey() : '' 
+         def dibcarrierId = inUnit.getFieldValue("unitDeclaredIbCv.cvId")
+         def cmdyId = inUnit.getFieldValue("unitGoods.gdsCommodity.cmdyId");
 
-     def dIbcarrierMode= unit.getFieldValue("unitDeclaredIbCv.cvCarrierMode")
+         def _category = inUnit.getFieldValue("unitCategory")
+     def categoryKey = _category != null ? _category.getKey() : ''
+
+         def dIbcarrierMode = inUnit.getFieldValue("unitDeclaredIbCv.cvCarrierMode")
      dIbcarrierMode = dIbcarrierMode != null ? dIbcarrierMode.getKey() : ""
 
-     def declaredIBVesType = gvyCmisUtil.getVesselClassType(dibcarrierId)
+         def declaredIBVesType = inGvyCmisUtil.getVesselClassType(dibcarrierId)
      declaredIBVesType = declaredIBVesType != null ? declaredIBVesType : ''
-     def declaredIBInVoyNbrForKQA =unit.getFieldValue("unitDeclaredIbCv.cvCvd.vvdIbVygNbr")
+         def declaredIBInVoyNbrForKQA = inUnit.getFieldValue("unitDeclaredIbCv.cvCvd.vvdIbVygNbr")
      boolean postMsg = false
      println("categoryKey ::"+categoryKey+"   decaredIBVesType::"+declaredIBVesType+"  cmdyId::"+cmdyId+"   dibcarrierId::"+dibcarrierId) 
      System.out.println("categoryKey ::"+categoryKey+"   decaredIBVesType::"+declaredIBVesType+"  cmdyId::"+cmdyId+"   dibcarrierId::"+dibcarrierId+"   loadPort::"+loadPort) 
@@ -162,7 +181,7 @@ public class GvyCmisEventUnitReceive
             actualVessel = dibcarrierId.length() == 6 ? dibcarrierId.substring(0,3) : 'null'
             actualVoyage = dibcarrierId.length() == 6 ? dibcarrierId.substring(3) : 'null'
             leg = '%'
-            xmlGvyString = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString,"vesvoy=",dibcarrierId)	    
+             xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "vesvoy=", dibcarrierId)
          }
          else if(declaredIBVesType.equals('BARGE')){
              if (!"KQA".equalsIgnoreCase(loadPort))   {
@@ -174,7 +193,7 @@ public class GvyCmisEventUnitReceive
                  def declaredOBVesType = null;
 
                  if (ObCarrier != null) {
-                     declaredOBVesType = gvyCmisUtil.getVesselClassType(ObCarrier);
+                     declaredOBVesType = inGvyCmisUtil.getVesselClassType(ObCarrier);
                  }
                  declaredOBVesType = declaredOBVesType != null ? declaredOBVesType : '';
 
@@ -182,15 +201,15 @@ public class GvyCmisEventUnitReceive
                     actualVessel = dibcarrierId.length() > 5 ? dibcarrierId.substring(0,3) : 'null'
                     actualVoyage = declaredIBInVoyNbrForKQA != null ? declaredIBInVoyNbrForKQA :dibcarrierId.length() > 5 ? dibcarrierId.substring(3,6) : 'null'
                 } else {
-                    ObCarrier = unit.getFieldValue("unitRouting.rtgDeclaredCv.cvId");
+                    ObCarrier = inUnit.getFieldValue("unitRouting.rtgDeclaredCv.cvId");
                     actualVessel = ObCarrier.length() > 5 ? ObCarrier.substring(0, 3) : 'null'
                     actualVoyage = ObCarrier.length() > 5 ? ObCarrier.substring(3, 6) : 'null'
                 }
             }
-            xmlGvyString = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString,"misc1=",dibcarrierId) 	
+             xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "misc1=", dibcarrierId)
          }else if(dIbcarrierMode.equals('TRUCK')) {
              //TRUCK T60
-            def intdObCarrierId= unit.getFieldValue("unitActiveUfv.ufvIntendedObCv.cvId") 
+             def intdObCarrierId = inUnit.getFieldValue("unitActiveUfv.ufvIntendedObCv.cvId")
             intdObCarrierId = intdObCarrierId != null ? intdObCarrierId : ""
             actualVessel = intdObCarrierId.length() > 6 ? intdObCarrierId.substring(0,3) : 'null'
             actualVoyage = intdObCarrierId.length() > 6 ? intdObCarrierId.substring(3,6) : 'null'
@@ -205,35 +224,51 @@ public class GvyCmisEventUnitReceive
           actualVoyage = "null"
           leg = "null"
         }else if (cmdyId != null && 'SAT'.equals(cmdyId)){ //A6 - Starts
-  		  def dobcarrierId = unit.getFieldValue("unitRouting.rtgDeclaredCv.cvId")
+            def dobcarrierId = inUnit.getFieldValue("unitRouting.rtgDeclaredCv.cvId")
 		  println("dobcarrierId : "+dobcarrierId);
           actualVessel = dobcarrierId.substring(0,3);
           actualVoyage = dobcarrierId.substring(3);
  	      leg = loadPort+'_'+dischargePort
-          xmlGvyString = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString,"vesvoy=",dobcarrierId)
-          gvyCmisUtil = gvyCmisUtil != null ? gvyCmisUtil : gvyBaseClass.getGroovyClassInstance("GvyCmisUtil");  
+            xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "vesvoy=", dobcarrierId)
+            inGvyCmisUtil = inGvyCmisUtil != null ? inGvyCmisUtil : gvyBaseClass.getGroovyClassInstance("GvyCmisUtil");
           if(!ObCarrier.equals(dobcarrierId)){ //A7 
-			  gvyCmisUtil.setObCarrier(unit, dobcarrierId)
-			  unit.setUnitRemark(null);
+              inGvyCmisUtil.setObCarrier(inUnit, dobcarrierId)
+              inUnit.setUnitRemark(null);
           }
        }//A6 - Ends
 		else{
           System.out.println(" TESTING ELSE CONDITION");
-          actualVessel = vesselCd
-          actualVoyage = vesVoyageNbr
+            actualVessel = inVesselCd
+            actualVoyage = inVoyageNbr
           leg = loadPort+'_'+dischargePort	   //A6
-         xmlGvyString = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString,"vesvoy=",ObCarrier)	    
+            xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "vesvoy=", ObCarrier)
         }
         postMsg = true
-     } 
+     }
 
+         /**
+          * The program has to use the booking values, for UNIT_ROLL
+          * and this should not be overridden (set postMsg = Boolean.FALSE)
+          */
+         if (inUseSuppliedCvId) {
+             postMsg = Boolean.FALSE;
+             LOGGER.info("Setting values for XML elements as " + "actualVessel=" + inVesselCd + "\tactualVoyage=" + inVoyageNbr + "\tleg=" + loadPort + "_" + dischargePort);
+             xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "actualVessel=", inVesselCd);
+             xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "actualVoyage=", inVoyageNbr);
+             xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "leg=", loadPort + '_' + dischargePort);
+
+         }
+         /**
+          * Logic for program to use booking values for vessel, voyage, leg ends
+          */
       if(postMsg){
         if(actualVessel!=null && actualVessel.length()>3){
         actualVessel=actualVessel.substring(0,3);
         }
-        xmlGvyString = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString,"actualVessel=",actualVessel)
-        xmlGvyString = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString,"actualVoyage=",actualVoyage)	
-        xmlGvyString = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString,"leg=",leg)
+          LOGGER.info("Setting values for XML elements as " + "actualVessel=" + actualVessel + "\tactualVoyage=" + actualVoyage + "\tleg=" + leg);
+          xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "actualVessel=", actualVessel)
+          xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "actualVoyage=", actualVoyage)
+          xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "leg=", leg)
       }
     }catch(Exception e){
         e.printStackTrace()

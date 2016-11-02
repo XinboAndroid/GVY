@@ -25,6 +25,7 @@ import org.apache.log4j.Logger
 * A9  GR   09/18/11    ON CLIENT INGATE Set vesvoy to OB vessel TT#12857
 * A10  GR  10/30/11   TOS2.1 Overwrite UNIT_DISCH_COMPLETE with UNIT_DISCH
 * A11  GR  01/03/12   Fixed setVesvoyFields Method
+* A101 KR   11/02/16  clientToMatsonSrvMsg to use Booking and Event data for vessel, voyage, leg
 */
 
 public class GvyCmisSrvMsgProcessor {
@@ -150,7 +151,7 @@ public class GvyCmisSrvMsgProcessor {
                     //A5
                     matsonToClientSrvMsg(xmlData, gvyCmisUtil, gvyBaseClass, unit)
                 } else if (equipFlex01.equals("MAT") && isAlwaysSendIGT) {
-                    clientToMatsonSrvMsg(xmlData, null, gvyCmisUtil, unit, event, gvyBaseClass, Boolean.TRUE);
+                    clientToMatsonSrvMsg(xmlData, gvyCmisUtil, unit, event, gvyBaseClass, Boolean.TRUE);
                 } else {
                     println("IB/OB CARARIER IS SAME")
                     // gvyCmisUtil.postMsgForAction(xmlData,gvyBaseClass,"EDT")
@@ -229,7 +230,7 @@ public class GvyCmisSrvMsgProcessor {
     }
 
     public void clientToMatsonSrvMsg(String xmlData, Object gvyCmisUtil, Object unit, Object event, Object gvyBaseClass, Boolean isComputeFromBooking) {
-        LOGGER.warn("Execute only if IGT true");
+        LOGGER.info("Execute only if IGT true");
         def xmlGvyString = xmlData
         try {
             xmlGvyString = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "srv=", "MAT")
@@ -237,11 +238,11 @@ public class GvyCmisSrvMsgProcessor {
             def xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "locationStallConfig=", "AO")
             xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, "truck=", "ZZZZ")
 
-            LOGGER.warn("locationStatus : " + locationStatus);
+            LOGGER.info("locationStatus : " + locationStatus);
             if (locationStatus.equals("1")) {
                 xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, "locationStatus=", "3")
                 gvyCmisUtil.postMsgForAction(xmlSrvCmisMsg, gvyBaseClass, "ADD")
-                LOGGER.warn("event.event.eventTypeId : " + event.event.eventTypeId);
+                LOGGER.info("event.event.eventTypeId : " + event.event.eventTypeId);
                 if (!'UNIT_IN_GATE'.equals(event.event.eventTypeId)) {
                     xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, "locationStatus=", "1")
                     //A9 -- FOR CLI VESSEL
@@ -254,8 +255,9 @@ public class GvyCmisSrvMsgProcessor {
                     def freightkind = unit.getFieldValue("unitFreightKind");
                     def vesselCd = unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdVessel.vesId");
                     freightkind = freightkind != null ? freightkind.getKey() : ''
+                    Booking booking = null;
                     if (isComputeFromBooking) {
-                        Booking booking = findBookingFromEventChanges(event.getEvent(), unit);
+                        booking = findBookingFromEventChanges(event.getEvent(), unit);
                         carrierId = booking.getEqoVesselVisit().getCvId();
                         obVesClass = booking.getEqoVesselVisit().getCarrierVesselClassType();
                         obVesClass = obVesClass != null ? obVesClass.getKey() : ''
@@ -272,7 +274,7 @@ public class GvyCmisSrvMsgProcessor {
                         }
                         def unitReceiveObj = gvyBaseClass.getGroovyClassInstance("GvyCmisEventUnitReceive");
                         if (isComputeFromBooking)
-                            xmlSrvCmisMsg = unitReceiveObj.processUnitRecieveFull(xmlSrvCmisMsg, gvyCmisUtil, vesselCd, vesVoyageNbr, unit,isComputeFromBooking);
+                            xmlSrvCmisMsg = unitReceiveObj.processUnitRecieveFull(xmlSrvCmisMsg, gvyCmisUtil, vesselCd, vesVoyageNbr, unit, booking,isComputeFromBooking);
                         else
                             xmlSrvCmisMsg = unitReceiveObj.processUnitRecieveFull(xmlSrvCmisMsg, gvyCmisUtil, carrierId, vesVoyageNbr, unit);
                     }
@@ -318,71 +320,7 @@ public class GvyCmisSrvMsgProcessor {
 
     //Client to Matson Service Cmis Messages also cerating the Release events on active Holds
     public void clientToMatsonSrvMsg(String xmlData, Object gvyCmisUtil, Object unit, Object event, Object gvyBaseClass) {
-        LOGGER.warn("Execute only if IGT true");
-        def xmlGvyString = xmlData
-        try {
-            xmlGvyString = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "srv=", "MAT")
-            //def locationStatus = gvyCmisUtil.getFieldValues(xmlGvyString, "locationStatus=")
-            def xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "locationStallConfig=", "AO")
-            xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, "truck=", "ZZZZ")
-
-            LOGGER.warn("locationStatus : "+locationStatus);
-            if (locationStatus.equals("1")) {
-                xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, "locationStatus=", "3")
-                gvyCmisUtil.postMsgForAction(xmlSrvCmisMsg, gvyBaseClass, "ADD")
-                LOGGER.warn("event.event.eventTypeId : "+event.event.eventTypeId);
-                if (!'UNIT_IN_GATE'.equals(event.event.eventTypeId)) {
-                    xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, "locationStatus=", "1")
-                    //A9 -- FOR CLI VESSEL
-                    def carrierId = unit.getFieldValue("unitActiveUfv.ufvIntendedObCv.cvId")
-                    def obVesClass = unit.getFieldValue("unitActiveUfv.ufvIntendedObCv.cvCvd.vvdVessel.vesVesselClass.vesclassVesselType");
-                    obVesClass = obVesClass != null ? obVesClass.getKey() : ''
-                    xmlSrvCmisMsg = gvyCmisUtil.setVesvoyFields(unit, xmlSrvCmisMsg, carrierId, obVesClass) //A11
-                    def bookingNumber = unit.getFieldValue("unitPrimaryUe.ueDepartureOrderItem.eqboiOrder.eqboNbr");
-                    def freightkind=unit.getFieldValue("unitFreightKind");
-                    freightkind = freightkind != null ? freightkind.getKey() : ''
-                    if (bookingNumber!= null && carrierId!=null && freightkind!= null && (freightkind.equals('MTY'))) {
-                        def vesVoyageNbr =  unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")
-                        def unitReceiveObj = gvyBaseClass.getGroovyClassInstance("GvyCmisEventUnitReceive");
-                        xmlSrvCmisMsg=unitReceiveObj.processUnitRecieveFull(xmlSrvCmisMsg, gvyCmisUtil,carrierId, vesVoyageNbr,unit)
-                    }
-                    LOGGER.warn("Triggering IGT now");
-                    gvyCmisUtil.postMsgForAction(xmlSrvCmisMsg, gvyBaseClass, "IGT") //A1 For unitRoll
-                }
-            } else {
-                gvyCmisUtil.postMsgForAction(xmlSrvCmisMsg, gvyBaseClass, "ADD")
-            }
-
-            //A3
-            def dischPort = unit.getFieldValue("unitRouting.rtgPOD1.pointId")
-            dischPort = dischPort != null ? dischPort : ''
-            def ds = gvyCmisUtil.getFieldValues(xmlSrvCmisMsg, "ds=");
-
-            if ("CY".equals(ds) && ContextHelper.getThreadFacility().getFcyId().equals(dischPort)) {
-                gvyCmisUtil.postMsgForAction(xmlSrvCmisMsg, gvyBaseClass, "DTA")
-            }
-            //getAllActive Holds and Recreate the Holds Records with ALT & HLR
-            def gvyCommentsObj = gvyBaseClass.getGroovyClassInstance("GvyCmisCommentNotesField")
-            def gvyStripObj = gvyBaseClass.getGroovyClassInstance("GvyCmisEventUnitStrip")
-            def holds = gvyCommentsObj.getUnitActiveHolds(unit)
-            def unitHolds = holds != null ? holds : ''
-            def holdsList = unitHolds.length() > 0 ? unitHolds.split(' ') : []
-            for (aHold in holdsList) {
-                println("aHold >>>>" + aHold)
-                if (aHold.equals('CG') || aHold.equals('RD')) {
-                    aHold = aHold.equals('CG') ? 'CG_INSP' : (aHold.equals('RD') ? 'OUTGATE' : aHold)
-                }
-                def xmlGvyHold = gvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "msgType=", aHold + '_HOLD')
-                gvyCmisUtil.postMsgForAction(xmlGvyHold, gvyBaseClass, "HLP")
-                gvyCmisUtil.postMsgForAction(xmlGvyHold, gvyBaseClass, "ALT")
-            }
-            //EDT
-            //-A7 gvyCmisUtil.postMsgForAction(xmlGvyString,gvyBaseClass,"EDT")
-            edtMsgFlag = true
-
-        } catch (Exception e) {
-            e.printStackTrace()
-        }
+        clientToMatsonSrvMsg(xmlData,gvyCmisUtil,unit,event,gvyBaseClass,Boolean.FALSE);
     }
 
     //Matson to Client Service Cmis Messages
