@@ -579,7 +579,7 @@ public class GvyCmisUtil {
             def loadPort = unit.getFieldValue("unitRouting.rtgPOL.pointId")
             def lkpLocType=unit.getFieldValue("unitActiveUfv.ufvLastKnownPosition.posLocType").getKey() //A11
             if(lkpLocType.equals('YARD') && ('LAX'.equals(loadPort) || 'OAK'.equals(loadPort) || 'SEA'.equals(loadPort) || loadPort == null )){
-                //todo what we need for Barge locations and Alaska Locations? (TAC)
+                //todo what we need for Barge locations Alaska? (KQA, PML, ....)
                 def routing = unit.getUnitRouting();
                 routing.setRtgPOL(RoutingPoint.findRoutingPoint(ContextHelper.getThreadFacility().getFcyId()));
             }

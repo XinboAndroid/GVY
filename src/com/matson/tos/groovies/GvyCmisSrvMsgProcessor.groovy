@@ -264,6 +264,9 @@ public class GvyCmisSrvMsgProcessor {
                         bookingNumber = booking.getEqboNbr();
 
                     }
+                    /**
+                     * This is where we're setting vessel, voyage,  leg as first point
+                     */
                     xmlSrvCmisMsg = gvyCmisUtil.setVesvoyFields(unit, xmlSrvCmisMsg, carrierId, obVesClass) //A11
                     if (bookingNumber != null && carrierId != null && freightkind != null && (freightkind.equals('MTY'))) {
                         def vesVoyageNbr = unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")
@@ -273,8 +276,10 @@ public class GvyCmisSrvMsgProcessor {
                             vesselCd = vvd.getVvdVessel().getVesId();
                         }
                         def unitReceiveObj = gvyBaseClass.getGroovyClassInstance("GvyCmisEventUnitReceive");
-                        if (isComputeFromBooking)
+                        if (isComputeFromBooking){
+                            // the value for actual vessel, voyage, leg set by  gvyCmisUtil.setVesvoyFields(unit, xmlSrvCmisMsg, carrierId, obVesClass) is overridden here based on booking
                             xmlSrvCmisMsg = unitReceiveObj.processUnitRecieveFull(xmlSrvCmisMsg, gvyCmisUtil, vesselCd, vesVoyageNbr, unit, booking,isComputeFromBooking);
+                        }
                         else
                             xmlSrvCmisMsg = unitReceiveObj.processUnitRecieveFull(xmlSrvCmisMsg, gvyCmisUtil, carrierId, vesVoyageNbr, unit);
                     }
