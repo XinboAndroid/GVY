@@ -66,6 +66,14 @@ public class GvyCmisSrvMsgProcessor {
             def unitEquipment = unit.getUnitPrimaryUe()
             def ueEquipmentState = unitEquipment.getUeEquipmentState()
             equipFlex01 = ueEquipmentState != null ? ueEquipmentState.getEqsFlexString01() : ''
+            /**
+             * Preserving old values in old tag for
+             */
+
+            def oldEquipFlex01 = equipFlex01;
+            def oldPortOfLoad = portOfLoad;
+            def oldUnitBkgNbr = unitBkgNbr;
+
             if (eventType.equals("UNIT_ROLL")) {
                 Booking booking = findBookingFromEventChanges(gvyEventObj, unit);
                 equipFlex01 = getNewEqFlexString01(event, booking);
@@ -105,10 +113,13 @@ public class GvyCmisSrvMsgProcessor {
                 }
             } else if (eventType.equals('UNIT_ROLL') || eventType.equals('UNIT_REROUTE')) //A4
             {
-                if (freightkind.equals('MTY') && equipFlex01.startsWith("CLI") && (!portOfLoad.equals(ContextHelper.getThreadFacility().getFcyId()) /*&& isNisLoadPort*/)) {
+                /**
+                 * for UNIT_ROLL this part of code to use old values (same for UNIT_REROUTE)
+                 */
+                if (freightkind.equals('MTY') && oldEquipFlex01.startsWith("CLI") && (!oldPortOfLoad.equals(ContextHelper.getThreadFacility().getFcyId()) /*&& isNisLoadPort*/)) {
                     processEquiSrvClientUnit(xmlGvyString, gvyCmisUtil, unit, event, gvyBaseClass, eventType)
                 } else {
-                    LOGGER.info("UNIT ROLL triggering INgate");
+                    LOGGER.info("UNIT ROLL triggering ingate with isAlwaysSendIGT as "+isAlwaysSendIGT);
                     processEquiSrvCmisMsg(xmlGvyString, gvyCmisUtil, unit, event, gvyBaseClass, eventType, isAlwaysSendIGT)
                 }
             } else if (eventType.equals('UNIT_DISCH_COMPLETE')) {
