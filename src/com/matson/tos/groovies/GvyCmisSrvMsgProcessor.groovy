@@ -50,6 +50,7 @@ public class GvyCmisSrvMsgProcessor {
             def unit = event.getEntity()
             def gvyEventObj = event.getEvent()
             String eventType = gvyEventObj.getEventTypeId()
+            LOGGER.info("EventType  "+eventType+"   isAlwaysSendIGT "+isAlwaysSendIGT);
             def gvyCmisUtil = gvyBaseClass.getGroovyClassInstance("GvyCmisUtil");
 
             def freightkind = unit.getFieldValue("unitFreightKind")
@@ -74,7 +75,7 @@ public class GvyCmisSrvMsgProcessor {
             def oldPortOfLoad = portOfLoad;
             def oldUnitBkgNbr = unitBkgNbr;
 
-            if (eventType.equals("UNIT_ROLL")) {
+            if (eventType.equals('UNIT_ROLL')) {
                 Booking booking = findBookingFromEventChanges(gvyEventObj, unit);
                 equipFlex01 = getNewEqFlexString01(event, booking);
                 portOfLoad = booking.getEqoPol().getPointId();
@@ -116,10 +117,12 @@ public class GvyCmisSrvMsgProcessor {
                 /**
                  * for UNIT_ROLL this part of code to use old values (same for UNIT_REROUTE)
                  */
+                LOGGER.info("Triggering "+eventType+" with isAlwaysSendIGT as "+isAlwaysSendIGT);
+                LOGGER.info("FreighKind "+freightkind+" oldEquipFlex01 "+oldEquipFlex01+" oldPortOfLoad "+oldPortOfLoad);
                 if (freightkind.equals('MTY') && oldEquipFlex01.startsWith("CLI") && (!oldPortOfLoad.equals(ContextHelper.getThreadFacility().getFcyId()) /*&& isNisLoadPort*/)) {
                     processEquiSrvClientUnit(xmlGvyString, gvyCmisUtil, unit, event, gvyBaseClass, eventType)
                 } else {
-                    LOGGER.info("UNIT ROLL triggering ingate with isAlwaysSendIGT as "+isAlwaysSendIGT);
+                    LOGGER.info(eventType+" triggering ingate with isAlwaysSendIGT as "+isAlwaysSendIGT);
                     processEquiSrvCmisMsg(xmlGvyString, gvyCmisUtil, unit, event, gvyBaseClass, eventType, isAlwaysSendIGT)
                 }
             } else if (eventType.equals('UNIT_DISCH_COMPLETE')) {
