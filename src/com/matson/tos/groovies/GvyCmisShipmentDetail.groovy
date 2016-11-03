@@ -6,6 +6,7 @@ package com.matson.tos.groovies
 * A2    GR     03/17/2010  Added ShipperId Field for DAS
 * A3    GR     05/19/10    Added method for lastfreeDay to reuse in Detention Code
 * A4    GR     07/13/10    Add to Fields HazDesc,HazRegs and Nbr
+* A101  KR     11/03/2016  UCC,ECC to rfer proper fields for Alaska
 */
 import com.navis.inventory.business.imdg.ImdgClass
 import com.navis.inventory.business.imdg.HazardItem;
@@ -97,7 +98,7 @@ public class GvyCmisShipmentDetail {
             restow = restow != null ? restow.getKey() : ''
             def restowAttr = gvyTxtMsgFmt.doIt('restow', restow)
             /**
-             * UCC, ECC, doNotBackLoad for ALASKA
+             * UCC, ECC, doNotBackLoad for ALASKA, A101
              */
             def UCC = unit.getFieldValue("unitFlexString15");//unit.getFieldValue("unitPrimaryUe.ueEquipmentState.eqsFlexString02");
             def UCCAttr = gvyTxtMsgFmt.doIt('ucc', UCC);
@@ -105,6 +106,9 @@ public class GvyCmisShipmentDetail {
             def ECCAttr = gvyTxtMsgFmt.doIt('ecc', ECC);
             def doNotBackLoad = unit.getFieldValue("unitActiveUfv.ufvFlexString09");
             def doNotBackLoadAttr = gvyTxtMsgFmt.doIt('doNotBackLoad', doNotBackLoad);
+            /**
+             * End UCC, ECC, doNotBackLoad for ALASKA, A101
+             */
 
 
             shipmentFieldAttr = bookingNbrAttr + consigneeAttr + shipperAttr + cneeCodeAttr + hazfAttr + hazImdgAttr + hazUnNumAttr + locationCategoryAttr + arrDateAttr + consigneePoAttr + restowAttr + shipperIdAttr + hazardItemDescAttr + hazardItemRegsAttr + UCCAttr + ECCAttr + doNotBackLoadAttr;

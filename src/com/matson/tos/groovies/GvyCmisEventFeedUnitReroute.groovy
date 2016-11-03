@@ -10,6 +10,7 @@ package com.matson.tos.groovies
 * A4 GR	   01/06/12	 Oracle Patch fix
 * A5 RI    10/18/13  Added locationStatus=4 for Inbound for CMIS to get the correct Barge vesvoy
 * A6 KR    07/09/15  Alaska Ports
+* A7 KR    11/03/16  Alaska Changes, to Trigger EDT for Change of Fields  UnitFlexString15, UfvFlexString08
 */
 
 
