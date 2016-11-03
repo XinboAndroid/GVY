@@ -190,11 +190,13 @@ public class GvyCmisEventUnitPropertyUpdate
                                      *
                                      * the change is added to compute the value, can be used in furture
                                      */
-                                    def bookingConsignee = booking.getEqoConsignee().bzuName;
-                                    def unitConsignee = unit.getFieldValue("unitGoods.gdsConsigneeAsString");
-                                    if (bookingConsignee != null && unitConsignee != null) {
-                                        if (!bookingConsignee.equalsIgnoreCase(unitConsignee)) {
-                                            consigneeChng = bookingConsignee;
+                                    if (booking.getEqoConsignee() != null) {
+                                        def bookingConsignee = booking.getEqoConsignee().bzuName;
+                                        def unitConsignee = unit.getFieldValue("unitGoods.gdsConsigneeAsString");
+                                        if (bookingConsignee != null && unitConsignee != null) {
+                                            if (!bookingConsignee.equalsIgnoreCase(unitConsignee)) {
+                                                consigneeChng = bookingConsignee;
+                                            }
                                         }
                                     }
                                 }
@@ -209,7 +211,7 @@ public class GvyCmisEventUnitPropertyUpdate
                             vesVoyageNbr = unit.getFieldValue("unitActiveUfv.ufvActualObCv.cvCvd.vvdObVygNbr")
                         }
                         def gvyUnitReceive = api.getGroovyClassInstance("GvyCmisEventUnitReceive");
-                        unitDtl = gvyUnitReceive.processUnitRecieveFull(unitDtl, gvyCmisUtil, vesselCd, vesVoyageNbr, unit, inUseSuppliedCvId, booking)
+                        unitDtl = gvyUnitReceive.processUnitRecieveFull(unitDtl, gvyCmisUtil, vesselCd, vesVoyageNbr, unit,booking, inUseSuppliedCvId)
                         //A4 - Ends
                         LOGGER.info("unitDtl : "+unitDtl);
                         def xmlGvyAcetsStr = gvyCmisUtil.eventSpecificFieldValue(unitDtl,"locationStallConfig=","AO")
