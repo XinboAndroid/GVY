@@ -77,9 +77,11 @@ public class GvyCmisSrvMsgProcessor {
 
             if (eventType.equals('UNIT_ROLL')) {
                 Booking booking = findBookingFromEventChanges(gvyEventObj, unit);
-                equipFlex01 = getNewEqFlexString01(event, booking);
-                portOfLoad = booking.getEqoPol().getPointId();
-                unitBkgNbr = booking.getEqboNbr();
+                if (booking != null) {
+                    equipFlex01 = getNewEqFlexString01(booking);
+                    portOfLoad = booking.getEqoPol().getPointId();
+                    unitBkgNbr = booking.getEqboNbr();
+                }
                 //freightkind is not changed, as the ROLL should not change it
                 LOGGER.info("For UNIT_ROLL ueEquipmentState.getEqsFlexString01() value from event is " + equipFlex01);
             }
@@ -486,6 +488,23 @@ public class GvyCmisSrvMsgProcessor {
             }
         }
         return booking;
+    }
+    /**
+     * Called only by UNIT_ROLL Logic to determine new EqFlexString01
+     * @param thisBooking
+     * @return
+     */
+    public String getNewEqFlexString01(Booking thisBooking) {
+
+        String VesselLineOperator = thisBooking.getEqoVesselVisit().getCarrierOperator().getBzuId();
+        if (VesselLineOperator != null) {
+            if ('MAT'.equalsIgnoreCase(VesselLineOperator))
+                return 'MAT';
+            else
+                return 'CLI';
+        } else
+            return 'CLI';
+
     }
 
 }// Class Ends
