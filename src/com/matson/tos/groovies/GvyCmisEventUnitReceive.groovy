@@ -256,6 +256,7 @@ public class GvyCmisEventUnitReceive
              xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "actualVessel=", inVesselCd);
              xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "actualVoyage=", inVoyageNbr);
              xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "leg=", loadPort + '_' + dischargePort);
+             xmlGvyString = inGvyCmisUtil.eventSpecificFieldValue(xmlGvyString, "dischargePort=", dischargePort);
 
          }
          /**

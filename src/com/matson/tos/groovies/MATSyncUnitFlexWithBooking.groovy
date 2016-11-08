@@ -166,11 +166,25 @@ public class MATSyncUnitFlexWithBooking extends AbstractGeneralNoticeCodeExtensi
                 this.log("ueEquipmentState :equipFlex01(getEqsFlexString01) Value---:"+equipFlex01)
                 String serviceId = setEqCntrSvr(inEvent, thisBooking);
                 this.log("ueEquipmentState :equipFlex01(getEqsFlexString01) Value1---:"+equipFlex01)
+                /**
+                 * For creating the case with Navis, Logging required details.
+                 */
+                this.log(Level.INFO, "UNIT_ROLL details from unit Object");
+                this.log(Level.INFO, "The value of getEqsFlexString01 from Unit Object " + equipFlex01);
+                this.log(Level.INFO, "Equipment Operator " + unit.getUnitPrimaryUe().getUeEqOperator().getBzuId());
+                this.log(Level.INFO, "Vessel Line Operator " + unit.getOutboundCv().getCvOperator().getBzuId());
+                this.log(Level.INFO, "Vessel Line Operator from Booking " + thisBooking.getEqoVesselVisit().getCarrierOperator().getBzuId());
+                this.log(Level.INFO, "getEqsFlexString01 from booking" + serviceId);
+                /**
+                 * For creating the case with Navis, Logging required details.
+                 * Ends here, this block can be removed after the case is resolved.
+                 */
                 //unitEquipment = unit.getUnitPrimaryUe();
                 if (equipFlex01 != null) {
                     //ueEquipmentState = unitEquipment.getUeEquipmentState();
                     //ueEquipmentState.setEqsFlexString01(serviceId);
-                    def newEquipFlex01 = ueEquipmentState != null ? ueEquipmentState.getEqsFlexString01() : '';
+                    def newEquipFlex01 = serviceId;
+                    //ueEquipmentState != null ? ueEquipmentState.getEqsFlexString01() : '';
                     this.log("ueEquipmentState :newEquipFlex01(getEqsFlexString01) Value-11--:"+newEquipFlex01);
                     if (newEquipFlex01!= null && "MAT".equalsIgnoreCase(newEquipFlex01) && !"MAT".equalsIgnoreCase(equipFlex01)) {
                         isAlwaysSendIGT = true;
