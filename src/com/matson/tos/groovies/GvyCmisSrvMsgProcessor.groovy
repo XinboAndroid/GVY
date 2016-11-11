@@ -274,11 +274,22 @@ public class GvyCmisSrvMsgProcessor {
                     Booking booking = null;
                     if (isComputeFromBooking) {
                         booking = findBookingFromEventChanges(event.getEvent(), unit);
+                        if (booking != null) {
                         carrierId = booking.getEqoVesselVisit().getCvId();
                         obVesClass = booking.getEqoVesselVisit().getCarrierVesselClassType();
                         obVesClass = obVesClass != null ? obVesClass.getKey() : ''
                         bookingNumber = booking.getEqboNbr();
+                            /**
+                             * Override the consignee and shippper
+                             */
+                            def consignee = booking.getConsigneeAsString();
+                            def cneeCode = booking.getEqoConsignee().getBzuId();
+                            if (consignee != null)
+                                xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, 'consignee', consignee);
+                            if (cneeCode != null)
+                                xmlSrvCmisMsg = gvyCmisUtil.eventSpecificFieldValue(xmlSrvCmisMsg, 'cneeCode', cneeCode);
 
+                        }
                     }
                     /**
                      * This is where we're setting vessel, voyage,  leg as first point
