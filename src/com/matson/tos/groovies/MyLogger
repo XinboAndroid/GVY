@@ -1,0 +1,28 @@
+import com.navis.argo.business.reference.Container
+import com.navis.external.road.AbstractGateTaskInterceptor
+import com.navis.external.road.EGateTaskInterceptor
+import com.navis.framework.persistence.HibernateApi
+import com.navis.orders.business.eqorders.Booking
+import com.navis.road.business.model.TruckTransaction
+import com.navis.road.business.workflow.TransactionAndVisitHolder
+import com.navis.road.business.appointment.model.GateAppointment
+import org.apache.log4j.Logger
+
+
+
+
+public class MyLogger extends AbstractGateTaskInterceptor implements EGateTaskInterceptor{
+    private static Logger LOGGER = Logger.getLogger(MyLogger.class);
+    public void execute(TransactionAndVisitHolder inDao){
+        LOGGER.warn(" MyLogger Execution Started ");
+
+        TruckTransaction tran = inDao.getTran();
+        String cntr=tran.ufvUnit.unitId();
+
+        LOGGER.warn("ContainerNBR" + cntr);
+
+        String bookingGkey = unit.getUnitPrimaryUe().getUeDepartureOrderItem().getEqboiOrder().getEqboGkey();
+
+        Container cntr = (Container) HibernateApi.getInstance().load(Container.class, bookingGkey);
+    }
+}

@@ -1,0 +1,20 @@
+import com.navis.argo.business.api.GroovyApi
+import com.navis.external.services.AbstractGeneralNoticeCodeExtension
+import com.navis.framework.persistence.HibernateApi
+import com.navis.inventory.business.units.EquipmentState
+import com.navis.inventory.business.units.Unit
+import com.navis.services.business.event.Event
+import com.navis.services.business.event.GroovyEvent
+import com.navis.inventory.business.units.UnitEquipment
+import com.navis.inventory.business.units.E
+
+public class MATBooking extends AbstractGeneralNoticeCodeExtension {
+    private Logger LOGGER = Logger.getLogger(MATBooking.class);
+
+    public void execute(GroovyEvent inEvent){
+
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.info("MATBooking Execution Started");
+
+    }
+}

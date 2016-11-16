@@ -4,24 +4,16 @@ import com.navis.argo.business.api.GroovyApi
 import com.navis.argo.business.model.Facility
 import com.navis.argo.business.reference.Equipment
 import com.navis.argo.business.reports.DigitalAsset
-import com.navis.external.framework.persistence.AbstractExtensionPersistenceCallback
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
-public class MATGvyMassGateProcess extends AbstractExtensionPersistenceCallback {
+public class MATGvyMassGateProcess extends GroovyInjectionBase {
 
-    void execute(Map inParams, Map inOutResults) {
-        execute();
-    }
 
     public String execute(Map inParameters) {
-        return execute();
-    }
-    public String execute() {
-
         GroovyApi groovyApi = new GroovyApi();
         String fileStr = null;
         String fileName = null;
@@ -42,14 +34,8 @@ public class MATGvyMassGateProcess extends AbstractExtensionPersistenceCallback 
                     mediaAssetName = "KDKMASSINGATE";
                     gateId = "KDK_MASSGATE";
                 }
-            } else {
-                return "NOFACILITY";
-            }
-            if (mediaAssetName == null) {
-                return "NOMEDIAASSET";
             }
             readBulkIngateMediaAsset(mediaAssetName);
-            bookingNbr = null;
             groovyApi.sendEmail("gbabu@matson.com", "gbabu@matson.com", "Bulk Transaction ", "after reading units" +dataList + " with size ");
             if (dataList != null && dataList.size()>0 ) { //&& bookingList!= null && bookingList.size() > 0) {
                 for (int i = 0; i < dataList.size(); i++) {
@@ -104,7 +90,7 @@ public class MATGvyMassGateProcess extends AbstractExtensionPersistenceCallback 
             Workbook workBook = new XSSFWorkbook(inputStream);
             Sheet firstSheet = workBook.getSheetAt(0);
             Iterator<Row> iterator = firstSheet.iterator();
-            dataList = new ArrayList<Map<String, String>>();
+
             while (iterator.hasNext()) {
                 Row nextRow = iterator.next();
                 Iterator<Cell> cellIterator = nextRow.cellIterator();
@@ -160,7 +146,10 @@ public class MATGvyMassGateProcess extends AbstractExtensionPersistenceCallback 
     }
     private String bookingNbr = null;
     private String statusOK = "OK";
+    private ArrayList<String> unitList = new ArrayList<String>();
     private ArrayList<Map<String, String>> dataList = new ArrayList<Map<String, String>>();
+    private ArrayList<String> bookingList = new ArrayList<String>();
+    private ArrayList<String> positionList = new ArrayList<String>();
     private String noBook = "NOBOOK";
     private String BOOK = "BOOK";
     private String UNITID = "UNITID";
